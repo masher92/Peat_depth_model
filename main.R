@@ -17,7 +17,7 @@ source("Peat_depth_model/Functions/check_models.R")
 source("Peat_depth_model/Functions/analyse_results.R")
 
 # Define whether to use BNG or decimal degrees projection
-projection <- 'bng'
+projection <- 'wgs84'
 duplication <- 'keep'
 
 # Read in dtm and slope rasters 
