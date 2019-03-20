@@ -1,8 +1,4 @@
-# Install libraries
-require(rgdal)
-library(raster)
-library(gdistance)
-
+# Function which:
 
 convertToSPDF <- function  (datafile){
   # Convert back to shapefile
@@ -107,12 +103,21 @@ find_nearestNeighours <- function (shp) {
   }
 
 
-
-
-
-
-
-
+# Function which:
+#   Finds the distance between each x/y coordinate and its nearest neighbour.
+#   Deletes one from any pair which are more than 1m close to each other.
+# It takes as inputs:
+convert_dd <- function (input) {
+  # If a dataframe 
+  if(is.data.frame(dtm)){
+    print("Its a dataframe")
+    
+  } else {
+    print("Its not a dataframe")
+    # Convert projection
+    converted = spTransform(input,CRS("+proj=longlat +datum=WGS84 +no_defs"))
+  }
+  return (converted)}
 
 
 

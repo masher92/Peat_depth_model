@@ -1,8 +1,4 @@
-cross_validate <- function (dat, slope, elevation) {
-
-  # Add transformation
-  dat$sqrtdepth <- sqrt(dat$depth)
-  dat$logdepth <- log(dat$depth)
+cross_validate <- function (dat) {
 
   # Store the number of cases
   n <- nrow(dat)
@@ -15,7 +11,7 @@ cross_validate <- function (dat, slope, elevation) {
                          "UPI_SM")
 
   # Loop over the 10 replications of splitting the data into 10 equally size groups.
-  for(r in 1:2) {
+  for(r in 1:10) {
     print(r)
     {
       data.order <- sample(1:n)
@@ -48,7 +44,8 @@ cross_validate <- function (dat, slope, elevation) {
       # Set up the spatial data object for the fitting data set
       # Ensure you add in the correct covariates here that you wish to use
       test.sp <-
-        as.geodata(obj=dat.fit, coords.col=c('coords.x1', 'coords.x2'), data.col= 'sqrtdepth', covar.col= c(3,4))
+        as.geodata(obj=dat.fit, coords.col=c('coords.x1', 'coords.x2'), data.col= 'sqrtdepth', 
+                   covar.col= c('elevation','Slope_5m'))
       # Jitter anyduplicated data locations which appear to be identical
       test.sp <- jitterDupCoords(test.sp, max=0.01)
 
@@ -69,7 +66,7 @@ cross_validate <- function (dat, slope, elevation) {
                         dat.pred$Slope_5m, obj.model=model.sm)
 
       kriging.sm <-
-        krige.conv(geodata=test.sp, locations=dat.pred[c('x', 'y')], krige=control.sm)
+        krige.conv(geodata=test.sp, locations=dat.pred[c('coords.x1', 'coords.x2')], krige=control.sm)
 
       model.sm.predictions <-
         cbind(kriging.sm$predict,

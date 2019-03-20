@@ -5,14 +5,17 @@ library(dplyr)
 library(geosphere)
 library(leaflet)
 library (rgeos)
+library(gdistance)
 
-source("E:/Msc/Dissertation/Code/Peat/R/clean_pd.R")
-source("E:/Msc/Dissertation/Code/Peat/R/cross_validate.R")
+# Source files containing functions
+source("E:/Msc/Dissertation/Code/Peat_depth_model/clean_pd.R")
+source("E:/Msc/Dissertation/Code/Peat_depth_model/cross_validate.R")
+source("E:/Msc/Dissertation/Code/Peat_depth_model/check_models.R")
 
 # Working directory
 setwd("E:/Msc/Dissertation/Code/Data/Generated/")
 
-# Read in dtm raster
+# Read in dtm and slope rasters 
 dtm <-raster("E:/Msc/Dissertation/Code/Data/Input/DTM/Dales_Nidderdale_DTM_5m.tif")
 slope <-raster("E:/Msc/Dissertation/Code/Data/Input/DTM/Dales_Nidderdale_Moorland_Line_Slope_5m.tif")
 
@@ -34,5 +37,22 @@ shp = find_nearestNeighours (shp)
 # Convert the spatial points dataframe to a dataframe for modelling
 dat <- data.frame(shp)
 
+# Add transformations of depth
+dat$sqrtdepth <- sqrt(dat$depth)
+dat$logdepth <- log(dat$depth)
+
+# Define which variables to use as covariates
+covars <- c("elevation", "Slope_5m")
+
+# Check model performance using the whole dataset
+lm_test <- check_lm(dat)
+sm_test <- check_sm(dat, covars)
+
+# Transform the projection of the data from BNG to DD
+
+
+
 # Perform cross validation
-results = cross_validate (dat, slope, dtm)
+results = cross_validate (dat)
+
+######## Check projection
