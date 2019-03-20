@@ -5,12 +5,6 @@
 
 # Create function
 create_results <- function (area, results, dat){
-  
-  # Load the results of the cross validation
-  load(results)
-  
-  # Load the dat file
-  load(dat)
   # COunt the cases
   n <- nrow(dat)
   #Bias - measures whether the predictions are too large or too small on average
@@ -38,22 +32,10 @@ create_results <- function (area, results, dat){
   return(summary_results)
 }
 
-# Send files to function
-stake_moss_summ <- create_results('stake_moss', "6.cross_validation_results/stake_moss.R", "6.cross_validation_results/stake_moss_dat.R")
-humberstone_summ <- create_results('humberstone', "6.cross_validation_results/humberstone.R", "6.cross_validation_results/humberstone_all_dat.R")
-newhouse_summ <- create_results("newhouse", "6.cross_validation_results/newhouse.R", "6.cross_validation_results/newhouse_dat.R")
-melbecks_summ <- create_results("melbecks", "6.cross_validation_results/melbecks.R", "6.cross_validation_results/melbecks_dat.R")
-
-## Join
-total_summ <- cbind(stake_moss_summ[1:3], humberstone_summ[2:3], newhouse_summ[2:3], melbecks_summ[2:3])
-total_summ[,-c(1)] <-round(total_summ[,-c(1)],4)
 #------------------------------------------------------------------------------
 #2. Plots comparing mean predicted value to observed values
 
-
 create_predicted_vs_observed <- function (results, dat){
-  load(results)
-  load(dat)
   # COnvert to dataframe and save
   results_df <- as.data.frame(results)
   
@@ -68,49 +50,16 @@ create_predicted_vs_observed <- function (results, dat){
   return (predicted_vs_observed)
 }
 
-humberstone_pvo <- create_predicted_vs_observed("6.cross_validation_results/humberstone.R","6.cross_validation_results/humberstone_dat.R")                                 
-melbecks_pvo <- create_predicted_vs_observed("6.cross_validation_results/melbecks.R","6.cross_validation_results/melbecks_dat.R")                                 
-newhouse_pvo <- create_predicted_vs_observed("6.cross_validation_results/newhouse.R","6.cross_validation_results/newhouse_dat.R")                                 
-stake_moss_pvo <- create_predicted_vs_observed("6.cross_validation_results/stake_moss.R","6.cross_validation_results/stake_moss_dat.R")                                 
+
 
 # Plots
 # Plot (without square root)
-plot ( humberstone_pvo$real_values,humberstone_pvo$LM.mean, main = paste('Linear model. CC =  ', round(cor(humberstone_pvo$real_values, humberstone_pvo$LM.mean),2), sep = ''),
+plot ( predicted_vs_observed$real_values,predicted_vs_observed$LM.mean, main = paste('Linear model. CC =  ', round(cor(predicted_vs_observed$real_values, predicted_vs_observed$LM.mean),2), sep = ''),
        xlab = 'Observed Value', ylab = 'Predicted Value', xlim = c(0,400), ylim = c(0,400))
 abline(a=0,b=1)
 
 # Plot (without square root)
-plot ( humberstone_pvo$real_values,humberstone_pvo$SM.mean, main = paste('Spatial model. CC =  ', round(cor(humberstone_pvo$real_values, humberstone_pvo$SM.mean),2), sep = ''),
-       xlab = 'Observed Value', ylab = 'Predicted Value', xlim = c(0,400), ylim = c(0,400))
-abline(a=0,b=1)
-
-# Plot (without square root)
-plot ( melbecks_pvo$real_values,melbecks_pvo$LM.mean, main = paste('Linear model. CC =  ', round(cor(melbecks_pvo$real_values, melbecks_pvo$LM.mean),2), sep = ''),
-       xlab = 'Observed Value', ylab = 'Predicted Value', xlim = c(0,400), ylim = c(0,400))
-abline(a=0,b=1)
-
-# Plot (without square root)
-plot ( melbecks_pvo$real_values,melbecks_pvo$SM.mean, main = paste('Spatial model. CC =  ', round(cor(melbecks_pvo$real_values, melbecks_pvo$SM.mean),2), sep = ''),
-       xlab = 'Observed Value', ylab = 'Predicted Value', xlim = c(0,400), ylim = c(0,400))
-abline(a=0,b=1)
-
-# Plot (without square root)
-plot ( newhouse_pvo$real_values,newhouse_pvo$LM.mean, main = paste('Linear model. CC =  ', round(cor(newhouse_pvo$real_values, newhouse_pvo$LM.mean),2), sep = ''),
-       xlab = 'Observed Value', ylab = 'Predicted Value', xlim = c(0,400), ylim = c(0,400))
-abline(a=0,b=1)
-
-# Plot (without square root)
-plot ( newhouse_pvo$real_values,newhouse_pvo$SM.mean, main = paste('Spatial model. CC =  ', round(cor(newhouse_pvo$real_values, newhouse_pvo$SM.mean),2), sep = ''),
-       xlab = 'Observed Value', ylab = 'Predicted Value', xlim = c(0,400), ylim = c(0,400))
-abline(a=0,b=1)
-
-# Plot (without square root)
-plot ( stake_moss_pvo$real_values,stake_moss_pvo$LM.mean, main = paste('Linear model. CC =  ', round(cor(stake_moss_pvo$real_values, stake_moss_pvo$LM.mean),2), sep = ''),
-       xlab = 'Observed Value', ylab = 'Predicted Value', xlim = c(0,400), ylim = c(0,400))
-abline(a=0,b=1)
-
-# Plot (without square root)
-plot ( stake_moss_pvo$real_values,stake_moss_pvo$SM.mean, main = paste('Spatial model. CC =  ', round(cor(stake_moss_pvo$real_values, stake_moss_pvo$SM.mean),2), sep = ''),
+plot ( predicted_vs_observed$real_values,predicted_vs_observed$SM.mean, main = paste('Spatial model. CC =  ', round(cor(predicted_vs_observed$real_values, predicted_vs_observed$SM.mean),2), sep = ''),
        xlab = 'Observed Value', ylab = 'Predicted Value', xlim = c(0,400), ylim = c(0,400))
 abline(a=0,b=1)
 
