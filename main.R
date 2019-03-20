@@ -85,5 +85,5 @@ abline(a=0,b=1)
 
 
 #
-save(results, file ="E:/Msc/Dissertation/Code/Peat_depth_model/results_bng_nodupes.R")
+save(results, file ="E:/Msc/Dissertation/Code/Peat_depth_model/results_wgs84_nodupes.R")
 
