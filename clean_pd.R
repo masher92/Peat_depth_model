@@ -107,16 +107,24 @@ find_nearestNeighours <- function (shp) {
 #   Finds the distance between each x/y coordinate and its nearest neighbour.
 #   Deletes one from any pair which are more than 1m close to each other.
 # It takes as inputs:
-convert_dd <- function (input) {
+convert_projection <- function (input, projection_system_required) {
   # If a dataframe 
-  if(is.data.frame(dtm)){
-    print("Its a dataframe")
-    
-  } else {
-    print("Its not a dataframe")
-    # Convert projection
-    converted = spTransform(input,CRS("+proj=longlat +datum=WGS84 +no_defs"))
-  }
+  if(projection_system_required == 'bng'){
+    projection_system = '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'}
+  if (projection_system_required == 'wgs84'){
+    projection_system = "+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +datum=OSGB36 +units=m +no_defs towgs84='446.448,-125.157,542.060,0.1502,0.2470,0.8421,-20.4894'"
+  } 
+  converted = spTransform(input,CRS(projection_system))
+  
+  # If a dataframe 
+  #if(is.data.frame(dtm)){
+  #  print("Its a dataframe")
+  #  
+  #} else {
+  #  print("Its not a dataframe")
+  #  # Convert projection
+  #  converted = spTransform(input,CRS(projection_system_required))
+  #}
   return (converted)}
 
 
