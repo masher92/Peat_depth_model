@@ -109,9 +109,9 @@ find_nearestNeighours <- function (shp) {
 # It takes as inputs:
 convert_projection <- function (input, projection_system_required) {
   # If a dataframe 
-  if(projection_system_required == 'bng'){
+  if(projection_system_required == 'wgs84'){
     projection_system = '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'}
-  if (projection_system_required == 'wgs84'){
+  if (projection_system_required == 'bng'){
     projection_system = "+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +datum=OSGB36 +units=m +no_defs towgs84='446.448,-125.157,542.060,0.1502,0.2470,0.8421,-20.4894'"
   } 
   converted = spTransform(input,CRS(projection_system))

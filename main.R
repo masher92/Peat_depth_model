@@ -18,7 +18,7 @@ source("Peat_depth_model/Functions/analyse_results.R")
 
 # Define whether to use BNG or decimal degrees projection
 projection <- 'bng'
-duplication <- 'drop'
+duplication <- 'keep'
 
 # Read in dtm and slope rasters 
 dtm <-raster("E:/Msc/Dissertation/Code/Data/Input/DTM/Dales_Nidderdale_Moorland_Line_DTM_5m.tif")
@@ -35,11 +35,11 @@ if (file.exists("E:/Msc/Dissertation/Code/Data/Generated/humberstone.shp")){
 # and delete duplicated locations
 if (duplication == 'drop'){
   print ("duplicates removed")
-  shp = find_duplication(shp)}
-
-# Check for the presence of points which are <1m together.
-# Delete one of each of these pairs of points.
-shp = find_nearestNeighours (shp)
+  shp = find_duplication(shp)
+  # Check for the presence of points which are <1m together.
+  # Delete one of each of these pairs of points.
+  shp = find_nearestNeighours (shp)} else
+  {print ("duplicates kept")}
 
 # Convert projection system
 shp <- convert_projection(shp, projection)
