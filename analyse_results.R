@@ -52,31 +52,5 @@ create_predicted_vs_observed <- function (results, dat){
 
 
 
-# Plots
-# Plot (without square root)
-plot ( predicted_vs_observed$real_values,predicted_vs_observed$LM.mean, main = paste('Linear model. CC =  ', round(cor(predicted_vs_observed$real_values, predicted_vs_observed$LM.mean),2), sep = ''),
-       xlab = 'Observed Value', ylab = 'Predicted Value', xlim = c(0,400), ylim = c(0,400))
-abline(a=0,b=1)
-
-# Plot (without square root)
-plot ( predicted_vs_observed$real_values,predicted_vs_observed$SM.mean, main = paste('Spatial model. CC =  ', round(cor(predicted_vs_observed$real_values, predicted_vs_observed$SM.mean),2), sep = ''),
-       xlab = 'Observed Value', ylab = 'Predicted Value', xlim = c(0,400), ylim = c(0,400))
-abline(a=0,b=1)
-
-#------------------------------------------------------------------------------
-#3. Variograms
-
-# Plot the semi-variogram to test for the presence of spatial autocorrelation
-residuals <- residuals(model.lm)
-dat.fit$residuals <- residuals
-resid.sp <- as.geodata(obj=dat, coords.col=4:5, data.col=9,
-                       covar.col= c(7,8))
-resid.sp <- jitterDupCoords(resid.sp, max=0.01)
-vari1 <- variog(resid.sp)
-plot(vari1, type = "b", main = "Variogram:?") 
-vari1.mc <- variog.mc.env(resid.sp, obj.variog=vari1)
-
-plot(vari1, envelope.obj = vari1.mc, xlab="Distance (°)",
-     ylab="Estimated semi-variogram") 
 
 
