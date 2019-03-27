@@ -18,10 +18,9 @@ check_lm <- function (dat, covar_names){
 }
 
 # Fit a sample spatial model on all of the data.
-# 
 check_sm <- function (dat, covar_names){
   ####
-  sp_depth <- as.geodata(obj=dat, coords.col=c('longitude', 'latitude'), data.col="depth", covar.col = covar_names)
+  sp_depth <- as.geodata(obj=dat, coords.col=c('longitude', 'latitude'), data.col="sqrtdepth", covar.col = covar_names)
   
   # Jitter the 2 duplicated data locations which appear to be identical
   names(sp_depth)
