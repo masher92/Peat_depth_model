@@ -7,7 +7,7 @@ library(leaflet)
 library (rgeos)
 library(gdistance)
 
-# Working directory
+# Set working directory
 setwd("E:/Msc/Dissertation/Code")
 
 # Source files containing functions
@@ -17,6 +17,7 @@ source("Peat_depth_model/Functions/check_models.R")
 source("Peat_depth_model/Functions/analyse_results.R")
 
 # Define whether to use BNG or decimal degrees projection
+# Define whether to keep the duplicates in or not
 projection <- 'wgs84' 
 duplication <- 'keep'
 
@@ -32,7 +33,7 @@ if (file.exists("E:/Msc/Dissertation/Code/Data/Generated/humberstone.shp")){
     shp = find_topographic("Humberstone_Peat_Depth_Points", dtm, slope)}
 
 # Check for the presence of duplicates in spatial location (both x and y coordinate)
-# and delete duplicated locations
+# If duplication is set to drop then  delete duplicated locations
 if (duplication == 'drop'){
   print ("duplicates removed")
   shp = find_duplication(shp)
@@ -41,7 +42,7 @@ if (duplication == 'drop'){
   shp = find_nearestNeighours (shp)} else
   {print ("duplicates kept")}
 
-# Convert projection system
+# Convert projection system to that specified at start of file.
 shp <- convert_projection(shp, projection)
 print (crs(shp))
 # Convert the spatial points dataframe to a dataframe for modelling
@@ -51,8 +52,7 @@ dat <- data.frame(shp)
 dat$sqrtdepth <- sqrt(dat$depth)
 dat$logdepth <- log(dat$depth)
 
-
--------------------
+#-------------------
 # Define which variables to use as covariates
 covars <- c("elevation", "Slope_5m")
 
@@ -63,5 +63,5 @@ covars <- c("elevation", "Slope_5m")
 # Perform cross validation
 results <- cross_validate (dat)
 
--------------------
+#-------------------
   
