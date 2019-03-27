@@ -1,8 +1,13 @@
 # Fit a linear model on all of the data.
 # Calculate residuals (difference between observed value of the dependent variable and 
 # the predicted value - from the regression equation line).
-check_lm <- function (dat){
-  mod.lm.test <- lm(sqrtdepth~elevation + Slope_5m, data=dat)
+check_lm <- function (dat, covars){
+  # Define the formula to be used
+  Formula <- formula(paste("sqrtdepth~ ", 
+                           paste(covars, collapse=" + ")))
+  # Apply it to the linear model
+  mod.lm.test <- lm(Formula, dat)
+  # Sumamrise
   summary(mod.lm.test)
   resid <- residuals(mod.lm.test)
   plot(resid)

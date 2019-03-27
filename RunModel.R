@@ -57,7 +57,7 @@ dat$logdepth <- log(dat$depth)
 covars <- c("elevation", "Slope_5m")
 
 # Check model performance using the whole dataset
-#lm_test <- check_lm(dat)
+lm_test <- check_lm(dat, covars)
 #sm_test <- check_sm(dat, covars)
 
 # Perform cross validation
