@@ -9,15 +9,14 @@ convertToSPDF <- function  (datafile){
 }
 
 # Function which:
-#   Joins a shapefile containing locations with peat depth measurements, with
-#   a DEM and slope shapefile.
+#   Joins a shapefile containing locations with peat depth measurements, with values from rasters.
 #   It takes as inputs:
 #   1. A shapefile with peat depth measurements.
-#   2. A dtm containing elevation data
-#   3. A shape file containing slope data.
+#   2. A list containing the rasters of interest.
+#   3. A list containing the names of the rasters of interests for renaming.
 # And returns as an output:
-#   A dataframe containing x/y coordinates alonside slope, elevation and peat depth values.
-find_topographic <- function (peat_points, dtm, slope) {
+#   A dataframe containing x/y coordinates, peat depth values and all the values from the rasters of interest.
+find_topographic <- function (peat_points, covars, covar_names) {
   shp <- readOGR(dsn = "E:/Msc/Dissertation/Peat/Data_Analysis/1.original_data/Peat_Depth_Data_180824/Peat_Points", layer = peat_points)
   # Delete any extra coordinate columns (present in the stake moss file)
   shp@coords <- shp@coords[,1:2]
@@ -25,25 +24,26 @@ find_topographic <- function (peat_points, dtm, slope) {
   shp@data$ID <- 1:nrow(shp)
   # Create dataframe
   df <- data.frame(shp)
-
-  # Join with topographic data
-  my.pts.elevation <- as.data.frame(extract(dtm, shp))
-  colnames(my.pts.elevation) <- c('elevation')
-  my.pts.slope <- as.data.frame(extract(slope, shp))
-  colnames(my.pts.slope) <- c('Slope_5m')
-  my_pts <- cbind(df, my.pts.elevation, my.pts.slope)
-  colnames(my_pts)[3:5] <- c('depth', 'longitude', 'latitude')
-
+  
+  # Create a copy of dataframe to append results to.
+  dat_with_covars <- df
+  for (covar in covars) {
+    my.pts <- as.data.frame(extract(covar, shp))
+    dat_with_covars <- cbind(dat_with_covars, my.pts)
+  } 
+  # Rename columns
+  colnames(dat_with_covars)[c(3:5, 7:ncol(dat_with_covars))] <- c('depth', 'longitude', 'latitude', covar_names)
+  
   # Check for any NA depth points and remove
-  my_pts <- my_pts[!is.na(my_pts$depth),]
+  dat_with_covars <- dat_with_covars[!is.na(dat_with_covars$depth),]
   # Convert depth to numeric
-  my_pts$depth <- as.numeric(as.character(my_pts$depth))
-
+  dat_with_covars$depth <- as.numeric(as.character(dat_with_covars$depth))
+  
   # Convert back to shapefile
-  shp <- SpatialPointsDataFrame(coords = my_pts[c(4:5)], data = my_pts[c(1,3,7,8)],
+  shp <- SpatialPointsDataFrame(coords = dat_with_covars[c(4:5)], data = dat_with_covars[c(1,3,7:ncol(dat_with_covars))],
                                 proj4string = CRS("+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +datum=OSGB36 +units=m +no_defs
                                                   +ellps=airy +towgs84=446.448,-125.157,542.060,0.1502,0.2470,0.8421,-20.4894"))
-  writeOGR(shp, dsn ="E:/Msc/Dissertation/Code/Data/Generated", layer = "humberstone.shp", driver="ESRI Shapefile" )
+  #writeOGR(shp, dsn ="E:/Msc/Dissertation/Code/Data/Generated", layer = "humberstone.shp", driver="ESRI Shapefile" )
   return(shp)
 }
 

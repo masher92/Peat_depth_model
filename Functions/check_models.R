@@ -1,10 +1,10 @@
 # Fit a linear model on all of the data.
 # Calculate residuals (difference between observed value of the dependent variable and 
 # the predicted value - from the regression equation line).
-check_lm <- function (dat, covars){
-  # Define the formula to be used
+check_lm <- function (dat, covar_names){
+  # Define the formula to be used in linear model
   Formula <- formula(paste("sqrtdepth~ ", 
-                           paste(covars, collapse=" + ")))
+                           paste(covar_names, collapse=" + ")))
   # Apply it to the linear model
   mod.lm.test <- lm(Formula, dat)
   # Sumamrise
@@ -19,9 +19,9 @@ check_lm <- function (dat, covars){
 
 # Fit a sample spatial model on all of the data.
 # 
-check_sm <- function (dat, covars){
+check_sm <- function (dat, covar_names){
   ####
-  sp_depth <- as.geodata(obj=dat, coords.col=5:6, data.col=2, covar.col = covars)
+  sp_depth <- as.geodata(obj=dat, coords.col=c('longitude', 'latitude'), data.col="depth", covar.col = covar_names)
   
   # Jitter the 2 duplicated data locations which appear to be identical
   names(sp_depth)
@@ -33,15 +33,16 @@ check_sm <- function (dat, covars){
   # quartiles (red is highest)
   plot(sp_depth)
   
+  # Define the formula to be used in spatial model
+  Formula_sm <- formula(paste("~", 
+                           paste(covar_names, collapse=" + ")))
+  
   # Fit a geostatistical model to all the data
-  model.geo <- likfit(geodata=sp_depth, trend=~elevation + Slope_5m,
+  model.geo <- likfit(geodata=sp_depth, trend= Formula_sm,
                       ini.cov.pars=c(15, 0.05), fix.nugget=FALSE,
                       cov.model="exponential")
   summary =summary(model.geo)
   return(summary)
 }
-
-
-
 
 

@@ -45,7 +45,7 @@ cross_validate <- function (dat) {
       # Ensure you add in the correct covariates here that you wish to use
       test.sp <-
         as.geodata(obj=dat.fit, coords.col=c('coords.x1', 'coords.x2'), data.col= 'sqrtdepth', 
-                   covar.col= c('elevation','Slope_5m'))
+                   covar.col= covars)
       # Jitter anyduplicated data locations which appear to be identical
       test.sp <- jitterDupCoords(test.sp, max=0.01)
 
