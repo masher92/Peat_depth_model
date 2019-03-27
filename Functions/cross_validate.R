@@ -1,4 +1,4 @@
-cross_validate <- function (dat) {
+cross_validate <- function (dat, covar_names) {
 
   # Store the number of cases
   n <- nrow(dat)
@@ -36,7 +36,9 @@ cross_validate <- function (dat) {
       dat.pred <- dat[split.matrix[split.matrix$group==i,1] , ]
 
       # Fit the linear model
-      model.lm <- lm(formula=sqrtdepth~elevation + Slope_5m, data=dat.fit)
+      Formula_lm <- formula(paste("sqrtdepth~ ", paste(covar_names, collapse=" + ")))
+      model.lm <- lm(Formula_lm, dat)
+      # Apply it to the linear model
       model.lm.predictions <-
         predict(object=model.lm, newdata=dat.pred, interval="prediction")
 
@@ -44,29 +46,38 @@ cross_validate <- function (dat) {
       # Set up the spatial data object for the fitting data set
       # Ensure you add in the correct covariates here that you wish to use
       test.sp <-
-        as.geodata(obj=dat.fit, coords.col=c('coords.x1', 'coords.x2'), data.col= 'sqrtdepth', 
-                   covar.col= covars)
+        as.geodata(obj=dat.fit, coords.col=c('longitude', 'latitude'), data.col= 'sqrtdepth', 
+                   covar.col= covar_names)
       # Jitter anyduplicated data locations which appear to be identical
       test.sp <- jitterDupCoords(test.sp, max=0.01)
 
       ## Fit the models
-      model.sm <-
-        likfit(geodata=test.sp, trend=~elevation + Slope_5m,
-               ini.cov.pars=c(15, 0.05), fix.nugget=FALSE,
-               cov.model="exponential")
+      # Define the formula to be used in spatial model
+      Formula_sm <- formula(paste("~", paste(covar_names, collapse=" + ")))
+      
+      # Fit a geostatistical model to all the data
+      model.sm <- likfit(geodata=sp_depth, trend= Formula_sm,
+                          ini.cov.pars=c(15, 0.05), fix.nugget=FALSE,
+                          cov.model="exponential")
+      
       # There are alternative spatial correlation models  so you could use these
       # instead of exponential (e.g. spherical)
       print(r) #Monitor progress; each of the 10 r will be run 10(i) times.
       print(i)
-
+      
+      # Trend.d and trend.l need to be the same as Formula_sm but drawing data from dat.fit and dat.pred
+      covars.fit <- paste("dat.fit$",covar_names, sep ='')
+      Formula_sm_fit <- formula(paste("~", paste(covars.fit, collapse=" + ")))
+      covars.pred <- paste("dat.pred$",covar_names, sep ='')
+      Formula_sm_pred <- formula(paste("~", paste(covars.pred, collapse=" + ")))
+      
       # Do the predictions
       control.sm <-
-        krige.control(type.krige="OK", trend.d=~dat.fit$elevation +
-                        dat.fit$Slope_5m, trend.l=~dat.pred$elevation +
-                        dat.pred$Slope_5m, obj.model=model.sm)
+        krige.control(type.krige="OK", trend.d=Formula_sm_fit, 
+                        trend.l=Formula_sm_pred, obj.model=model.sm)
 
       kriging.sm <-
-        krige.conv(geodata=test.sp, locations=dat.pred[c('coords.x1', 'coords.x2')], krige=control.sm)
+        krige.conv(geodata=test.sp, locations=dat.pred[c('longitude', 'latitude')], krige=control.sm)
 
       model.sm.predictions <-
         cbind(kriging.sm$predict,
