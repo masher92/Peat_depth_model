@@ -21,17 +21,20 @@ source("Peat_depth_model/Functions/analyse_results.R")
 projection <- 'wgs84' 
 duplication <- 'keep'
 
+# Check metrics available
+#dir("Data/Input/Metrics/Metrics_40")
+
 # Read in metrics
 dtm <-raster("Data/Input/DTM/Dales_Nidderdale_Moorland_Line_DTM_5m.tif")
 slope <-raster("Data/Input/DTM/Dales_Nidderdale_Moorland_Line_Slope_5m.tif")
-w_hhhh = raster("Data/Input/Metrics/Metrics_40/w_hhhh_40.0.asc")
-count_hhhh = raster("Data/Input/Metrics/Metrics_40/count_hhhh_40.0.asc")
-w_llll = raster("Data/Input/Metrics/Metrics_40/w_llll_40.0.asc")
-count_llll = raster("Data/Input/Metrics/Metrics_40/count_llll_40.0.asc")
+#w_hhhh = raster("Data/Input/Metrics/Metrics_40/w_hhhh_40.0.asc")
+#count_hhhh = raster("Data/Input/Metrics/Metrics_40/count_hhhh_40.0.asc")
+#w_llll = raster("Data/Input/Metrics/Metrics_40/w_llll_40.0.asc")
+#count_llll = raster("Data/Input/Metrics/Metrics_40/count_llll_40.0.asc")
 
 # Define which variables to use as covariates, and set up a list with their names (for renaming in function)
-covars <- c(w_hhhh, w_llll, dtm, slope)
-covar_names <- c("W_hhhh", "W_llll", "elevation", "Slope_5m")
+covars <- c(dtm, slope)
+covar_names <- c("elevation", "Slope_5m")
 
 # Create dataframe with depth measurements and slope/elevation if it doesn't exist already
 if (file.exists("E:/Msc/Dissertation/Code/Data/Generated/humberstone.shp")){
@@ -70,4 +73,7 @@ sm_test <- check_sm(dat, covar_names)
 results <- cross_validate (dat)
 
 #-------------------
+
+
+
   
