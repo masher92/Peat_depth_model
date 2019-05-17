@@ -19,7 +19,7 @@ source("Peat_depth_model/Functions/analyse_results.R")
 # Define whether to use BNG or decimal degrees projection
 # Define whether to keep the duplicates in or not
 projection <- 'wgs84' 
-duplication <- 'keep'
+duplication <- 'drop'
 
 # Check metrics available
 #dir("Data/Input/Metrics/Metrics_40")
@@ -73,7 +73,8 @@ sm_test <- check_sm(dat, covar_names)
 results <- cross_validate (dat)
 
 #-------------------
-
-
+# Save to file as a list containng both the dat file (needed to analyse results) and the results
+results <- list(results, dat)
+save(results, file = "E:/Msc/Dissertation/Code/Peat_depth_model/Output/results_wgs84_nodupes.R")
 
   
