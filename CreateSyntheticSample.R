@@ -8,10 +8,10 @@ library(dplyr)
 library(fields)
 library(raster)
 library(rdgdal)
-setwd("E:/Msc/Dissertation/Code/Data")
+setwd("E:/Msc/Dissertation/Code/Peat_depth_model")
 
 # Source files containing functions
-source("E:/Msc/Dissertation/Code/Peat_depth_model/Functions/process_rasters.R")
+source("Functions/process_rasters.R")
 
 #######################################################################################
 # Create functions for use in processing.
@@ -200,10 +200,12 @@ aoi_df$slope_and_elevation <- paste(aoi_df$Slope_Cuts, aoi_df$Elevation_Cuts)
 n_samples = 700
 n_close_points = 2
 min_dist = 10
-max_dist = 60 
+max_dist = 70 
 
 #  Create the sample
 sample = create_df_sample(aoi_df, min_dist, max_dist, n_close_points, n_samples)
+# Rename columns
+colnames(sample)[c(1,2)] <- c('longitude', 'latitude')
 
 # Check distribution matches the whole AOI
 distrib_aoi <- as.data.frame(table(aoi_df$slope_and_elevation))

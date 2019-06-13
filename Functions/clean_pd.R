@@ -62,8 +62,7 @@ find_nearestNeighours <- function (shp, projection) {
   if (projection == 'wgs84'){
     d <- gDistance(shp, byid=T) # rgeos package
   }else if(projection == 'bng') {
-    d <- distm(shp)
-  }
+    d <- distm(shp)}
   
   # Find second shortest distance (closest distance is of point to itself, therefore use second shortest)
   # For each row (which represents one sample point) place in an ascending order and select the 2nd point)
@@ -81,8 +80,7 @@ find_nearestNeighours <- function (shp, projection) {
   dat <- rbind(more_than_1, to_keep)
   
   # Calculate number of rows which are <1m apart, print statement
-  print(paste0("This sample contained ",nrow(less_than_1), " samples which are <1m apart.
-                Now, one from each neighbouring pair has been removed"))
+  print(paste0("This sample contained ",nrow(less_than_1), " samples which are <1m apart. Now, one from each neighbouring pair has been removed"))
   
   # Convert back to shapefile
   shp <- SpatialPointsDataFrame(coords = dat[c('longitude', 'latitude')], data = dat[c('depth', 'elevation', 'Slope_5m')],
