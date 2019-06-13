@@ -56,7 +56,7 @@ cross_validate <- function (dat, covar_names) {
       Formula_sm <- formula(paste("~", paste(covar_names, collapse=" + ")))
       
       # Fit a geostatistical model to all the data
-      model.sm <- likfit(geodata=sp_depth, trend= Formula_sm,
+      model.sm <- likfit(geodata=test.sp, trend= Formula_sm,
                           ini.cov.pars=c(15, 0.05), fix.nugget=FALSE,
                           cov.model="exponential")
       
@@ -75,9 +75,9 @@ cross_validate <- function (dat, covar_names) {
       control.sm <-
         krige.control(type.krige="OK", trend.d=Formula_sm_fit, 
                         trend.l=Formula_sm_pred, obj.model=model.sm)
-
+      print("here")
       kriging.sm <-
-        krige.conv(geodata=test.sp, locations=dat.pred[c('longitude', 'latitude')], krige=control.sm)
+        krige.conv(geodata=test.sp, locations=dat.pred[,c('longitude', 'latitude')], krige=control.sm)
 
       model.sm.predictions <-
         cbind(kriging.sm$predict,
