@@ -1,4 +1,4 @@
-# Peat_depth_model
+# Peat Depth Model
 
 The purpose of this model is to interpolate between... TBF.
 
