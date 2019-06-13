@@ -1,13 +1,13 @@
 ################################################################################
 # Set up processing environment
-library(rgdal)
-library(raster)
-library(geoR)
-library(dplyr)
-library(geosphere)
-library(leaflet)
-library (rgeos)
-library(gdistance)
+#library(rgdal)
+#library(raster)
+#library(geoR)
+#library(dplyr)
+#library(geosphere)
+#library(leaflet)
+#library (rgeos)
+#library(gdistance)
 
 setwd("E:/Msc/Dissertation/Code/Peat_depth_model")
 
@@ -19,7 +19,8 @@ source("Functions/analyse_results.R")
 
 ################################################################################
 # Define model parameters
-aoi <- "Melbecks"
+dataset <- 'Measured' # 'Measured' or 'Synthetic'
+aoi <- "Humberstone"
 projection <- 'wgs84'  # 'bng' or 'wgs84'
 duplication <- 'drop' # 'keep' or 'drop'
 covar_names <- c("elevation", "Slope_5m") # Names of variables to be used in model 
@@ -29,10 +30,13 @@ covar_names <- c("elevation", "Slope_5m") # Names of variables to be used in mod
 
 ################################################################################
 # Read in required data
-peat_depth_samples <- readOGR(dsn = "Data/Generated/CleanedPeatDepthSamples", layer = paste(aoi, "PeatDepthPoints_cleaned", sep = ''))
-dtm <-raster("Data/Input/DTM/Dales_Nidderdale_Moorland_Line_DTM_5m.tif")
-slope <-raster("Data/Input/DTM/Dales_Nidderdale_Moorland_Line_Slope_5m.tif")
-#w_hhhh = raster("Data/Input/Metrics/Metrics_40/w_hhhh_40.0.asc")
+if (dataset == 'Measured'){
+  load(paste("Data/Generated/MeasuredSamples/", aoi, 'MeasuredSampleDataset.RData', sep = ''))
+  }else if (dataset == 'Synthetic'){
+    sample <- read.csv(paste("Data/Generated/SyntheticSamples/", aoi, 'SyntheticSampleDataset.csv', sep = ''))
+    #colnames(sample)[c(1,2)] <- c('longitude', 'latitude')
+    sample <- SpatialPointsDataFrame(coords = sample[,c(1:2)], data = sample[,c(3:9)],
+                                     proj4string = CRS("+init=epsg:27700"))}
 
 # Filepath to folder in which to save outputs
 output_fp <- paste("Data/Generated/CrossValidationResults/", aoi, sep = '')
@@ -40,27 +44,21 @@ model_run_description <- paste(aoi, projection, duplication, sep = '_')
 
 ################################################################################
 # Process data
-# Remove any NA depth valus
-#peat_depth_samples <- clean_peat_depth_samples (peat_depth_samples) # Remove any NA depth values
-peat_depth_samples <- peat_depth_samples[!is.na(peat_depth_samples@data$Depth),]
-
-# Join to covariates
-peat_depth_samples_with_covars <- join_topographic_data(peat_depth_samples, c(dtm, slope), covar_names)
 # Check for duplicated x,y locations - If duplication is set to drop then  delete duplicated locations
 if (duplication == 'drop'){
   print ("duplicates removed")
-  peat_depth_samples_with_covars = find_duplication(peat_depth_samples_with_covars)
+  sample = find_duplication(sample)
   # Check for the presence of points which are <1m together.
   # Delete one of each of these pairs of points.
-  peat_depth_samples_with_covars = find_nearestNeighours (peat_depth_samples_with_covars, projection)} else
+  sample = find_nearestNeighours (sample, projection)} else
   {print ("duplicates kept")}
 
 # Convert projection system to that specified at start of file.
-peat_depth_samples_with_covars <- convert_projection(peat_depth_samples_with_covars, projection)
-print (crs(peat_depth_samples_with_covars))
+sample <- convert_projection(sample, projection)
+print (crs(sample))
 
 # Convert the spatial points dataframe to a dataframe for modelling
-sample_df <- data.frame(peat_depth_samples_with_covars)
+sample_df <- data.frame(sample)
 
 # Add transformations of depth
 sample_df$sqrtdepth <- sqrt(sample_df$depth)
