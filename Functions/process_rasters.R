@@ -1,7 +1,7 @@
 # Set up processing environment
 #library(raster)
 #library(rdgdal)
-setwd("E:/Msc/Dissertation/Code/Data")
+setwd("E:/Msc/Dissertation/Code/Peat_depth_model/Data")
 
 RasterToDF_cropped <- function (aoi_fp, raster_fp) {
   'Clips a raster file to the extent of an AOI
