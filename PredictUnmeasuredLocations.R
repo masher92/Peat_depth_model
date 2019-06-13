@@ -25,10 +25,8 @@ duplication <- 'keep'
 #dir("Data/Input/Metrics/Metrics_40")
 
 # Read in metrics
-#dtm <-raster("Data/Input/DTM/Dales_Nidderdale_Moorland_Line_DTM_5m.tif")
-#slope <-raster("Data/Input/DTM/Dales_Nidderdale_Moorland_Line_Slope_5m.tif")
-dtm <-raster("Data/Input/DTM/dtm_h_clip.tif")
-slope <-raster("Data/Input/DTM/slope_h_clip.tif")
+dtm <-raster("Data/Input/DTM/Dales_Nidderdale_Moorland_Line_DTM_5m.tif")
+slope <-raster("Data/Input/DTM/Dales_Nidderdale_Moorland_Line_Slope_5m.tif")
 
 #w_hhhh = raster("Data/Input/Metrics/Metrics_40/w_hhhh_40.0.asc")
 #count_hhhh = raster("Data/Input/Metrics/Metrics_40/count_hhhh_40.0.asc")
@@ -72,7 +70,8 @@ dat$logdepth <- log(dat$depth)
 # This will contain the coefficients defining the relationship between the response
 # and predictors. 
 model.lm <- lm(formula=sqrtdepth~elevation + Slope_5m, data=dat)
-
+model.lm.predictions <-
+  predict(object=model.lm, newdata=dat, interval="prediction")
 #------------------------------------------------------------------------------
 #3. Fit spatial model on the sample data
 # Convert dataframe to geodata
@@ -89,8 +88,5 @@ model.sm <-
 
 #------------------------------------------------------------------------------
 # 4. Create unmeasured locations which we want to predict for.
-slope <- raster("3.data_for_use/clipped_slope_elevation/humberstone_slope_clip.tif")
-slope <- projectRaster(slope, crs = "+proj=longlat +datum=WGS84 +no_defs")
-elevation <- raster("3.data_for_use/clipped_slope_elevation/humberstone_elevation_clip.tif")
-elevation <- projectRaster(elevation, crs = "+proj=longlat +datum=WGS84 +no_defs")
-
+#m These are created in the process rastrer file - altho not certain this is best location to do this?
+# Take the code from the runcrossvalidation for fitting th emodel
