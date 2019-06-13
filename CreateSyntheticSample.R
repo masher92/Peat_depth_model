@@ -140,7 +140,7 @@ resample_far_points <- function(sample_df, original_df, n_close_points, min_dist
   return (list(new_sample_df, missed_cats))
 }
 
-create_df_sample <- function (original_df, min_dist, max_dist, n_close_points){
+create_df_sample <- function (original_df, min_dist, max_dist, n_close_points, n_samples){
   "
   Creates a sample from a dataframe of coordinates, according to requirements that the sample should
   have the same distribution of slope and elevation values as the original dataframe and that each point 
@@ -151,7 +151,7 @@ create_df_sample <- function (original_df, min_dist, max_dist, n_close_points){
   "
   start_time <- Sys.time()
   # Take a sample from the dataframe that matches the proportional split between slope and elevation in the whole AOI
-  sample <- stratified(original_df, c("slope_and_elevation"), 900/nrow(original_df))
+  sample <- stratified(original_df, c("slope_and_elevation"), n_samples/nrow(original_df))
   # For each point in the sample, find the number of neighbours it has within a range between min_dist and max_dist
   sample = find_near_neighbours(sample, min_dist, max_dist, n_close_points)
   # If 0 rows have less than the requirements for n_close_points then sampling is done.
@@ -197,24 +197,37 @@ aoi_df$slope_and_elevation <- paste(aoi_df$Slope_Cuts, aoi_df$Elevation_Cuts)
 
 #########################################################################
 # Sampling constraints
-n_close_points = 1
-min_dist = 0.01
-max_dist = 50 
+n_samples = 700
+n_close_points = 2
+min_dist = 10
+max_dist = 60 
 
 #  Create the sample
-sample = create_df_sample(aoi_df, min_dist, max_dist, n_close_points)
+sample = create_df_sample(aoi_df, min_dist, max_dist, n_close_points, n_samples)
+
+# Check distribution matches the whole AOI
+distrib_aoi <- as.data.frame(table(aoi_df$slope_and_elevation))
+distrib_aoi$proportion <- round((distrib_aoi$Freq/nrow(aoi_df)) * 100,2)
+
+distrib_sample <- as.data.frame(table(sample$slope_and_elevation))
+distrib_sample$proportion <- round((distrib_sample$Freq/nrow(sample)) * 100,2)
 
 # Plot the sample points (first convert to SPDF and change CRS (leaflet can only plot in DD))
+# Read in the outline of the AOI
+aoi <- readOGR(dsn = "Input/Site_AOIs", layer = "Humberstone_AOI")
+aoi <- spTransform(aoi, CRS("+init=epsg:4326"))
+
 spdf <- SpatialPointsDataFrame(coords = sample[,c(1:2)], data = sample[,c(3:4)],
                                proj4string = CRS("+init=epsg:27700"))
 spdf <- spTransform(spdf, CRS("+init=epsg:4326"))
 leaflet() %>% 
   addProviderTiles(providers$OpenStreetMap) %>%  
-  addTiles() %>% 
-  addCircles(data = spdf, weight = 3, opacity=1, color = 'black')   
+  addTiles() %>%
+  addPolygons(data = aoi, fillOpacity = 0, weight = 3) %>%
+  addCircles(data = spdf, radius = 5, weight = 1, fillOpacity = 1, opacity=1, color = 'green', fillColor = 'green')   
 
 # Run cross validation
 #colnames(dat)[c(1,2)] <- c('longitude', 'latitude')
 
 # Save
-write.csv(sample, "Generated/humberstone_test_sample.csv", row.names =  FALSE)
+write.csv(sample, "Generated/humberstone_test_sample_700_2_10_60.csv", row.names =  FALSE)
