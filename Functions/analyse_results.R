@@ -1,3 +1,21 @@
+## How does RMSE calculation work?
+# Each row is a location, each column is prediction of a cross-validation run
+test_pred <- results[,4, ]
+# Each row is a location, each column is the real value repeated 
+test_real <- matrix(rep(dat$sqrtdepth,10), nrow=n, ncol=10,byrow=FALSE)
+# Find the difference between the real and predicted values
+residuals <- test_pred - test_real
+# Square the residuals
+residuals_squared <- diff^2
+# Find average of squared residuls
+mean_sq_residuals <- mean(residuals_squared)
+# Find square root of mean squared residuals
+
+rmse <- function (col_no) {sqrt(mean((results[,col_no, ] - matrix(rep(dat$sqrtdepth,10), nrow=n, ncol=10,byrow=FALSE))^2))}
+rmse <- function (col_no) {sqrt(mean((test_pred - test_real)^2))}
+rmse <- function (col_no) {sqrt(mean((residuals)^2))}
+rmse <- function (col_no) {sqrt(mean(residuals_squared))}
+rmse <- function (col_no) {sqrt(mean_sq_residuals)}
 
 #------------------------------------------------------------------------------
 #1. Calculate metrics of interest
@@ -26,8 +44,8 @@ create_results <- function (area, results, dat){
   
   ## Store results in a dataframe
   summary_results <- data.frame(results_metric = c( 'bias', 'RMSE', 'coverage', 'interval width'),
-                                sm = c(bias(4), rmse(4), coverage(6), i_w(6)),
-                                lm = c(bias(1), rmse(1), coverage(3), i_w(3)))
+                                sm = c(bias(4), rmse(4)^2, coverage(6), i_w(6)^2),
+                                lm = c(bias(1), rmse(1)^2, coverage(3), i_w(3)^2))
   colnames(summary_results)[2:3] <- c(paste(area, 'sm', sep = '.'), paste(area, 'lm', sep = '.'))
   return(summary_results)
 }
