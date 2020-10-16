@@ -1,4 +1,4 @@
-### Impact of peat depth sampling strategy on geostatistical model performance
+# Impact of peat depth sampling strategy on geostatistical model performance
 A major component of this research was evaluating the impact on the geostatistical model performance of the method used to collect the peat depth samples used in the model. 
 In particular, testing focussed upon:
 * The density of samples collected in a grid formation in order to realise geostatistical model benefits; and
