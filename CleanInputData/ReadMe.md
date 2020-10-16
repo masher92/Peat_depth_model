@@ -1,6 +1,6 @@
 ### Cleaning data
 
-Peat depth measurement data was provided by Yorkshire Peat Partnership for four areas in the Yorkshire Dales.
+Peat depth measurement data was provided by Yorkshire Peat Partnership for four areas in the Yorkshire Dales:
 * Humberstones
 * Melbecks and Reeth
 * Newhouse
