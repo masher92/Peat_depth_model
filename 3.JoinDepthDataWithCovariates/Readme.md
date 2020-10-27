@@ -1,4 +1,4 @@
-## 3. JoinDepthData_withCovariates
+## Establishing covariate values at locations with depth measurements
 
 ### JoinDepthData_withCovariates.R
 This script takes a shapefile containing the locations at which peat depth measurements have been measured.  
