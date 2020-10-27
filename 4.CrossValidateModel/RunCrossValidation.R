@@ -31,7 +31,7 @@ duplication <- 'drop' # 'keep' or 'drop'
 ################################################################################
 # Read in required data
 ################################################################################
-sample <- readOGR(dsn = "Data/Generated/CleanedPeatDepthSamples_withCovariates", layer = paste(aoi, 'CleanedPD_withCovariates', sep = '_'))
+pd_sample <- readOGR(dsn = "Data/Generated/CleanedPeatDepthSamples_withCovariates", layer = paste(aoi, 'CleanedPD_withCovariates', sep = '_'))
 
 # Filepath to folder in which to save outputs
 output_fp <- paste("Data/Generated/CrossValidationResults/", aoi, sep = '')
@@ -42,31 +42,31 @@ model_run_description <- paste(aoi, projection, duplication, sep = '_')
 # Check for duplicated x,y locations - If duplication is set to drop then  delete duplicated locations
 if (duplication == 'drop'){
   print ("duplicates removed")
-  sample = find_duplication(sample)
+  pd_sample = find_duplication(pd_sample)
   # Check for the presence of points which are <1m together.
   # Delete one of each of these pairs of points.
-  sample = find_nearestNeighours (sample, original_projection)
+  pd_sample = find_nearestNeighours (pd_sample, original_projection)
 } else
 {print ("duplicates kept")}
 
 # Convert projection system to that specified at start of file.
-sample <- convert_projection(sample, desired_projection)
-print (crs(sample))
+pd_sample <- convert_projection(pd_sample, desired_projection)
+print (crs(pd_sample))
 
 # Convert the spatial points dataframe to a dataframe for modelling
-sample_df <- data.frame(sample)
+pd_sample_df <- data.frame(pd_sample)
 
 # Add transformations of depth
-sample_df$sqrtdepth <- sqrt(sample_df$depth)
+pd_sample_df$sqrtdepth <- sqrt(pd_sample_df$depth)
 
 ################################################################################
 # Check model performance using the whole dataset
-lm_test <- check_lm(sample_df, c("elevation", "Slope_5m"))
-sm_test <- check_sm(sample_df, c("elevation", "Slope_5m"))
+lm_test <- check_lm(pd_sample_df, c("elevation", "Slope_5m"))
+sm_test <- check_sm(pd_sample_df, c("elevation", "Slope_5m"))
 
 ################################################################################
 # Perform cross validation
-results <- cross_validate (sample_df, c("elevation", "Slope_5m"))
+results <- cross_validate (pd_sample_df, c("elevation", "Slope_5m"))
 
 # Store the results alongside the sample_df used to produce them
 results_ls <- list(results, sample_df)
