@@ -1,13 +1,13 @@
 ################################################################################
 # Set up processing environment
 ################################################################################
-#library(rgdal)
-#library(geoR)
-#library(dplyr)
-#library(geosphere)
-#library(leaflet)
-#library (rgeos)
-#library(gdistance)
+library(rgdal)
+library(geoR)
+library(dplyr)
+library(geosphere)
+library(leaflet)
+library (rgeos)
+library(gdistance)
 
 # Set working directory
 setwd("C:/Users/gy17m2a/OneDrive - University of Leeds/Msc/Dissertation/DataAnalysis")
@@ -16,17 +16,26 @@ aoi <- "Humberstone"
 covar_names <- c("elevation", "Slope_5m") # Names of variables to be used in model 
 
 ################################################################################
-# Define functions
+# Define function
 ################################################################################
-# Function which:
-#   Joins a shapefile containing locations with peat depth measurements, with values from rasters.
-#   It takes as inputs:
-#   1. A shapefile with peat depth measurements.
-#   2. A list containing the rasters of interest.
-#   3. A list containing the names of the rasters of interests for renaming.
-# And returns as an output:
-#   A dataframe containing x/y coordinates, peat depth values and all the values from the rasters of interest.
 join_topographic_data <- function (pd_samples_shp, covars, covar_names) {
+"
+Description
+----------
+     Joins a shapefile containing locations with peat depth measurements, with values from rasters (slope and elevation)
+Parameters
+----------
+    pd_samples_shp: Spatial Points Data Frame (spdf)
+        An spdf contaiing locations with peat depth measurements
+    covars: list
+        A list containing rasters from which to extract the values (slope and elevation) 
+    covar_names: list
+        A list containing strings of the names of the rasters (slope and elevation)
+Returns
+-------
+    shp: Spatial Points Data Frame (spdf)
+       A spdf containing x/y coordinates, peat depth values and all the values from the rasters of interest
+"    
   # Create dataframe
   df <- data.frame(pd_samples_shp)
   # Extract the values from the rasters which match the points in the pd_samples dataset
