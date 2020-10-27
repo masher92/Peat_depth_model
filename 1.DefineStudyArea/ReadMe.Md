@@ -8,8 +8,7 @@
 <img src="Figs/StudyArea.PNG" width="500"  title="Full study area outline" />
 <img src="Figs/StudyArea_TrimmedToMoorlandLine.PNG" width="500"  title="Study Area trimmed to Moorland Line" />  
 </p>
-<p align="center">Figure 7. JJA Mean for all hours <p align="center">
-
+<p align="center">Figure 1. Study Area before (left) and after (right) trimming to Moorland Line <p align="center">
 
 #### DefinePtsWithinRegion_withCovariateValues.R
 * Takes raster files containing slope and elevation values over a wider area and trims these to the boundaries of the study region.  
