@@ -35,7 +35,7 @@ pd_sample <- readOGR(dsn = "Data/Generated/CleanedPeatDepthSamples_withCovariate
 
 # Filepath to folder in which to save outputs
 output_fp <- paste("Data/Generated/CrossValidationResults/", aoi, sep = '')
-model_run_description <- paste(aoi, projection, duplication, sep = '_')
+model_run_description <- paste(aoi, desired_projection, duplication, sep = '_')
 
 ################################################################################
 # Process data

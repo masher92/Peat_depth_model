@@ -13,15 +13,18 @@ library(plyr)
 setwd("C:/Users/gy17m2a/OneDrive - University of Leeds/Msc/Dissertation/DataAnalysis/")
 
 # Source files containing functions
-source("Code/Peat_depth_model-master/5.CrossValidateModel/Functions/clean_pd.R")
-source("Code/Peat_depth_model-master/5.CrossValidateModel/Functions/cross_validate.R")
-source("Code/Peat_depth_model-master/5.CrossValidateModel/Functions/check_models.R")
-source("Code/Peat_depth_model-master/5.CrossValidateModel/Functions/analyse_results.R")
+source("Code/Peat_depth_model-master/4.CrossValidateModel/Functions/cross_validate.R")
+source("Code/Peat_depth_model-master/4.CrossValidateModel/Functions/check_models.R")
+source("Code/Peat_depth_model-master/4.CrossValidateModel/Functions/analyse_results.R")
+
+# Source files containing functions
+source("Code/Peat_depth_model-master/5.CreateSyntheticSamples/AssignDepth_functions.R")
 
 ##################################################
 # Parameters defining number samples and how they will be used
 ##################################################
-grid_spacing = 157
+grid_spacing = 100
+aoi = 'Humberstone'
 
 ##################################################
 # Read in required data
@@ -46,142 +49,140 @@ aoi_trimmed <- readOGR(dsn = "Data/Generated/StudyAreaTrimmedToMoorlandLine", la
 pd_sample_pts_with_covars <- readOGR(dsn = "Data/Generated/CleanedPeatDepthSamples_withCovariates", layer = "Humberstone_CleanedPD_withCovariates")
 
 ##################################################
-# Create gridded samples
-# 
+# Create a gridded sample of the specified grid spacing, covering a vounding box over the study area
 ##################################################
-# Coordinates of a larger area around the AOI
-coords = matrix(c(-1.896798, 54.061784,
-                  -1.788280, 54.066396,
-                  -1.779337,54.023056, 
-                  -1.889167, 54.014181), 
-                ncol = 2, byrow = TRUE)
+original_grid <- create_regular_grid(grid_spacing = grid_spacing)
 
-# Convert to spatialpolygon
-bbox = Polygon(coords)
-bbox = SpatialPolygons(list(Polygons(list(bbox), ID = "a")), proj4string=CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"))
-
-# Convert projection - needs to be in BNG for metres
-bbox <- spTransform(bbox, CRS("+init=epsg:27700"))
-
-# Convert to grid
-grid <- spsample(bbox, cellsize = grid_spacing, type = "regular")
-
-# Define the range of coordinates possible
-long_range <- seq(0,grid_spacing, by =5)
-lat_range <-  seq(0,grid_spacing, by =5)
-
-# Create dataframe to store results
-all_positions <- setNames(data.frame(matrix(ncol = 2, nrow = 0)), c("Long", "Lat"))
-
-# Create a dataframe containing amounts to shift x, y coordiantes
-# Each should be unique
-for (i in (1:80)){
-  position <- data.frame(sample(long_range,1), sample(lat_range,1))
-  if (nrow(match_df(all_positions, position))==0){
-    all_positions <- rbind(all_positions, position)}}
-
-# Trim to be just 50 long
-all_positions <- all_positions[c(1:50),]
+##################################################
+# Slightly shift the coordinates of this grid 50 times, to account for variation in model results
+# derived from the exact locations where the cooordinates fall.
+# For each of these shifts:
+#   Trim the grid to the boundaries of the study area
+#   Find the slope and elevation value of each grid point
+#   Use this shifted grid to perform model cross validation
+##################################################
+# Define the amounts to shift the latitude and longitude of the grid by
+# These are in multiples of 5m as this is the resolution of the slope and elevation data
+grid_shifts <- shift_grid(original_grid, grid_spacing = grid_spacing, n_shifts = 50)
 
 # Create dataframe to store results
 overall_results <- data.frame(Metric = c('bias-LM', 'RMSE-LM', 'Coverage-LM', 'IW-LM', 'CC-LM', 'bias-SM', 'RMSE-SM', 'Coverage-SM', 'IW-SM', 'CC-SM', 'Length'))
 
-## Process
-for (i in 1:25){
-  print(paste("Model run number:", i))
-  grid_copy <- grid
-  # Shift the grid by the amount needed
-  grid_copy@coords[,1] <- grid_copy@coords[,1] + all_positions[i,1]
-  grid_copy@coords[,2] <- grid_copy@coords[,2] + all_positions[i,2]
- # tryCatch(
-  #  {
-      crs(grid_copy) <- crs(aoi_trimmed)
-      grid_copy <- grid_copy[aoi_trimmed, ]
-      
-      # Grid covers the whole bounding box around AOI_trimmed, need to clip it to extent
-      grid_copy <- grid_copy[aoi_trimmed, ]
-      
-      # Convert to dataframe
-      gridded_samples <- as.data.frame(grid_copy)
-      
-      # Join sample locations to slope and elevation data
-      # Extract the values from the rasters which match the points in the pd_samples dataset
-      for (covar in c(dtm, slope)) {
-        my.pts <- as.data.frame(extract(covar, grid_copy))
-        gridded_samples <- cbind(gridded_samples, my.pts)
-      } 
-      gridded_samples <- na.omit(gridded_samples)
-      
-      # Rename columns
-      colnames(gridded_samples) <- c('longitude', 'latitude', 'elevation', 'Slope_5m')
-      
-      # Convert projection to spdf for use in gBuffer
-      gridded_samples_spdf <- SpatialPointsDataFrame(coords = gridded_samples[c(1:2)], data = gridded_samples[c(3:4)],proj4string =  CRS("+init=epsg:27700"))
-      
-      gridded_samples_spdf <- spTransform(gridded_samples_spdf, CRS("+init=epsg:4326"))
-      
-      # COnvert to dataframe
-      all_samples <- as.data.frame(gridded_samples_spdf)
-      
-      #########################################################################
-      # Assign depths using spatial model
-      #########################################################################
-      sample_with_depths <- assign_depths_from_distrib_newmethod(sample, all_samples)
-      
-      sample_with_depths <- sample_with_depths[[1]]
-      sample_with_depths$sqrtdepth <- sqrt(sample_with_depths$depth)
-      
-      # If its divisible by ten add a slightly permutated row
-      if (nrow(sample_with_depths)%%10 == 0){
-        random_number <- sample(1:nrow(sample_with_depths), 1) 
-        extra_row <- sample_with_depths[96,]
-        extra_row$longitude =  extra_row$longitude + 0.0003
-        sample_with_depths <- rbind(sample_with_depths, extra_row)
-      }
-      print ('Cross validating')
-      #########################################################################
-      # Cross-validates
-      #########################################################################
-      results <- cross_validate (sample_with_depths, c('elevation', 'Slope_5m'))
-      options(scipen=999)
-      summary_results <- create_results ('Humberstone', results, sample_with_depths)
-      
-      # Compare the predicted values with the observed values
-      predicted_vs_observed <- create_predicted_vs_observed (results, sample_with_depths)
-      
-      # Add correlation coefficient to the results
-      cc_results <- data.frame(results_metric = 'CC', Humberstone.sm = cor(predicted_vs_observed$real_values, predicted_vs_observed$SM.mean),
-                               Humberstone.lm = cor(predicted_vs_observed$real_values, predicted_vs_observed$LM.mean))
-      summary_results <- rbind (summary_results, cc_results )
-      
-      
-      # Reshape the results, so each column is a model run
-      lm_results <- summary_results[c(1,3)]
-      lm_results <- data.frame(results_metric = c('bias-LM', 'RMSE-LM', 'Coverage-LM', 'IW-LM', 'CC-LM'),summary_results[c(3)] )
-      colnames(lm_results) <- c('Metric', 'Value')
-      sm_results <- summary_results[c(1,2)]
-      sm_results <- data.frame(results_metric = c('bias-SM', 'RMSE-SM', 'Coverage-SM', 'IW-SM', 'CC-SM'),summary_results[c(2)] )
-      colnames(sm_results) <- c('Metric', 'Value')
-      results_reshaped <- rbind(lm_results, sm_results)
-      
-      # Add a column with the number of samples
-      results_reshaped <- rbind(results_reshaped, data.frame(Metric = 'Number Samples', Value = nrow(sample_with_depths)))
-      
-      overall_results <- cbind (overall_results, results_reshaped[2]) 
-      
-      #filename = paste(as.character(grid_spacing), "grid_", as.character(i), '.csv', sep ='')
-      # setwd("C:/Users/gy17m2a/Desktop/Dissertation/Code/Peat_depth_model")
-      #  write.csv(results_reshaped, file = filename, row.names =F)
-      
-   #   'no error'
-   # },
-  #  error = function(e){
-  #    'error'
-  #  }
-    
- # )
-  print("Done") 
+## Iterate through 50 slight shifts of the placement of the grid.
+for (i in 1:50){
+  print(paste("Grid shift number:", i))
+ 
+   # Create a copy of the origal grid
+  shifted_grid <- original_grid
+  # Shift both the x and y coordinate of the shifted grid by the amount 
+  # in the ith row of the grid_shifts dataframe
+  shifted_grid@coords[,1] <- shifted_grid@coords[,1] + grid_shifts[i,1]
+  shifted_grid@coords[,2] <- shifted_grid@coords[,2] + grid_shifts[i,2]
+  
+  # Set the crs of shifted grid to be the same as the study area (it should be anyway)
+  crs(shifted_grid) <- crs(aoi_trimmed)
+  # Trim the grid to the outline of the study area (before this it covers bounding box of area)
+  shifted_grid <- shifted_grid[aoi_trimmed, ]
+  
+  # Convert to dataframe
+  shifted_grid_df <- as.data.frame(shifted_grid)
+  
+  # Join sample locations to slope and elevation data
+  # Extract the values from the rasters which match the points in the pd_samples dataset
+  for (covar in c(dtm, slope)) {
+    my.pts <- as.data.frame(extract(covar, shifted_grid))
+    shifted_grid_df <- cbind(shifted_grid_df, my.pts)
+  } 
+  # NB: Not sure why any values are getting NA?
+  shifted_grid_df <- na.omit(shifted_grid_df)
+  
+  # Rename columns
+  colnames(shifted_grid_df) <- c('longitude', 'latitude', 'elevation', 'Slope_5m')
+  
+  # Convert projection to spdf for use in gBuffer (in assign depths?)
+  shifted_grid_spdf <- SpatialPointsDataFrame(coords = shifted_grid_df[c(1:2)], data = shifted_grid_df[c(3:4)],proj4string =  CRS("+init=epsg:27700"))
+  shifted_grid_spdf <- spTransform(shifted_grid_spdf, CRS("+init=epsg:4326"))
+  
+  # COnvert to dataframe
+  shifted_grid_df <- as.data.frame(shifted_grid_spdf)
+  
+  #########################################################################
+  # Assign depths
+  #########################################################################
+  shifted_grid_df <- assign_depths(pd_sample_pts_with_covars,shifted_grid_df)
+  # Add a square root of depth
+  shifted_grid_df$sqrtdepth <- sqrt(shifted_grid_df$depth)
+  
+  ################################################################################
+  # Check model performance using the whole dataset
+  ################################################################################
+  #lm_test <- check_lm(shifted_grid_df, c("elevation", "Slope_5m"))
+  #sm_test <- check_sm(shifted_grid_df, c("elevation", "Slope_5m"))
+  
+  #########################################################################
+  # Cross-validate model with shifted grid iteration
+  #########################################################################
+  # Can't remember reason for this
+  # If its divisible by ten add a slightly permutated row
+  # if (nrow(shifted_grid_df)%%10 == 0){
+  #   random_number <- sample(1:nrow(shifted_grid_df), 1) 
+  #   extra_row <- shifted_grid_df[96,]
+  #   extra_row$longitude =  extra_row$longitude + 0.0003
+  #   shifted_grid_df <- rbind(shifted_grid_df, extra_row)}
+  
+  print ('Cross validating')
+  results <- cross_validate (shifted_grid_df, c('elevation', 'Slope_5m'))
+  
+  ################################################################################
+  # Analyse results
+  ################################################################################
+  options(scipen=999) # stops use of scientific notations
+
+  # Compare the predicted values with the observed values
+  predicted_vs_observed <- create_predicted_vs_observed (results, shifted_grid_df)
+  
+  # Create dataframe summarising the bias, RMSE, coverage and interval width
+  summary_results <- create_results (aoi, results, shifted_grid_df)
+  # Add correlation coefficient to the results
+  cc_results <- data.frame(results_metric = 'CC', Humberstone.sm = cor(predicted_vs_observed$real_values, predicted_vs_observed$SM.mean),
+                           Humberstone.lm = cor(predicted_vs_observed$real_values, predicted_vs_observed$LM.mean))
+  summary_results <- rbind (summary_results, cc_results )
+  
+  # Check plots
+  plot ( predicted_vs_observed$real_values,predicted_vs_observed$LM.mean, main = paste('Linear model. CC =  ', round(cor(predicted_vs_observed$real_values, predicted_vs_observed$LM.mean),2), sep = ''),
+         xlab = 'Observed Value', ylab = 'Predicted Value', xlim = c(0,400), ylim = c(0,400))
+  plot ( predicted_vs_observed$real_values,predicted_vs_observed$SM.mean, main = paste('Spatial model. CC =  ', round(cor(predicted_vs_observed$real_values, predicted_vs_observed$SM.mean),2), sep = ''),
+         xlab = 'Observed Value', ylab = 'Predicted Value', xlim = c(0,400), ylim = c(0,400))
+  
+  ################################################################################
+  # Analyse results
+  ################################################################################
+  # Reshape the results, so each column is a model run
+  lm_results <- summary_results[c(1,3)]
+  lm_results <- data.frame(results_metric = c('bias-LM', 'RMSE-LM', 'Coverage-LM', 'IW-LM', 'CC-LM'),summary_results[c(3)] )
+  colnames(lm_results) <- c('Metric', 'Value')
+  sm_results <- summary_results[c(1,2)]
+  sm_results <- data.frame(results_metric = c('bias-SM', 'RMSE-SM', 'Coverage-SM', 'IW-SM', 'CC-SM'),summary_results[c(2)] )
+  colnames(sm_results) <- c('Metric', 'Value')
+  results_reshaped <- rbind(lm_results, sm_results)
+  
+  # Add a column with the number of samples
+  results_reshaped <- rbind(results_reshaped, data.frame(Metric = 'Number Samples', Value = nrow(shifted_grid_df)))
+  
+  # Add to the overall tablewhich will store results from each permutation 
+  overall_results <- cbind (overall_results, results_reshaped[2])
+  
+  ################################################################################
+  # Save results for this iteration?
+  ################################################################################
+  #filename = paste(as.character(grid_spacing), "grid_", as.character(i), '.csv', sep ='')
+  #write.csv(results_reshaped, file = filename, row.names =F)
+
+  print(paste("Completed grid shift iteration:", i))
 }
 
-#setwd("C:/Users/gy17m2a/Desktop/Dissertation/Code/Peat_depth_model")
-#write.csv(overall_results, file = "Shuffled_grid/150grid.50runs.csv", row.names = F)
+################################################################################
+# Save overall results for regular grid
+################################################################################
+filename = paste("Data/Generated/CrossValidation/SyntheticData/Grid_50shuffles/", grid_spacing, "mgrid.50runs.csv", sep = '')
+write.csv(overall_results, file = filename, row.names = F)
