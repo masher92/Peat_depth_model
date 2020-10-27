@@ -1,7 +1,23 @@
-# Fit a linear model on all of the data.
-# Calculate residuals (difference between observed value of the dependent variable and 
-# the predicted value - from the regression equation line).
 check_lm <- function (dat, covar_names){
+"
+Description
+----------
+    Fits a linear model on all of the data (as opposed to CV which only ever fits it on a subset of the data)
+    Calculates the residuals (difference between observed value of the dependent variable and the predicted value
+    - from the regression equation line).
+Parameters
+----------
+    dat: Data frame
+        A dataframe containing the locations of points and related data
+    covar_names: string
+        A string specifyingt the projection, either 'bng' or 'wgs84
+Returns
+-------
+    resid: Spatial points data frame (spdf)
+        A spdf containing the locations of points and related data, with one from each of any pair of locations which
+        are <1m apart removed.
+"   
+  
   # Define the formula to be used in linear model
   Formula <- formula(paste("sqrtdepth~ ", 
                            paste(covar_names, collapse=" + ")))
@@ -17,9 +33,25 @@ check_lm <- function (dat, covar_names){
   return (resid)
 }
 
-# Fit a sample spatial model on all of the data.
 check_sm <- function (dat, covar_names){
-  ####
+  "
+Description
+----------
+    Fits a linear model on all of the data (as opposed to CV which only ever fits it on a subset of the data)
+    Calculates the residuals (difference between observed value of the dependent variable and the predicted value
+    - from the regression equation line).
+Parameters
+----------
+    dat: Data frame
+        A dataframe containing the locations of points and related data
+    covar_names: string
+        A string specifyingt the projection, either 'bng' or 'wgs84
+Returns
+-------
+    resid: Spatial points data frame (spdf)
+        A spdf containing the locations of points and related data, with one from each of any pair of locations which
+        are <1m apart removed.
+"   
   sp_depth <- as.geodata(obj=dat, coords.col=c('longitude', 'latitude'), data.col="sqrtdepth", covar.col = covar_names)
   
   # Jitter the 2 duplicated data locations which appear to be identical
