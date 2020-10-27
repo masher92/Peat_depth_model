@@ -16,31 +16,22 @@ setwd("C:/Users/gy17m2a/OneDrive - University of Leeds/Msc/Dissertation/DataAnal
 source("Code/Peat_depth_model-master/5.CrossValidateModel/Functions/clean_pd.R")
 source("Code/Peat_depth_model-master/5.CrossValidateModel/Functions/cross_validate.R")
 source("Code/Peat_depth_model-master/5.CrossValidateModel/Functions/check_models.R")
-source("Code/Peat_depth_model-master/Functions/analyse_results.R")
+source("Code/Peat_depth_model-master/5.CrossValidateModel/Functions/analyse_results.R")
 
 ################################################################################
 # Define model parameters
 ################################################################################
-dataset <- 'Measured' # 'Measured' or 'Synthetic'
 aoi <- "Humberstone"
 original_projection <- 'bng'  # 'bng' or 'wgs84'
-desired_projection <- 'bng'  # 'bng' or 'wgs84'
+# NB: if desired projection is set to bng, the spatial model doesn't run properly and gives the same
+# results to the linear model, still not sure why this is.
+desired_projection <- 'wgs84'  # 'bng' or 'wgs84'
 duplication <- 'drop' # 'keep' or 'drop'
-covar_names <- c("elevation", "Slope_5m") # Names of variables to be used in model 
 
 ################################################################################
 # Read in required data
 ################################################################################
-# If 
-if (dataset == 'Measured'){
-  sample <- readOGR(dsn = "Data/Generated/CleanedPeatDepthSamples_withCovariates", layer = paste(aoi, 'CleanedPD_withCovariates', sep = '_'))
-  }else if (dataset == 'Synthetic'){
-    sample <- read.csv("Data/Generated/SyntheticSamples/Grid/250m_spacing.csv")
-    sample <- SpatialPointsDataFrame(coords = sample[,c('longitude', 'latitude')],
-                                     data = sample[,c('elevation', 'Slope_5m', 'depth')],
-                                     proj4string = CRS("+init=epsg:4326"))
-    # Convert projection?
-  }
+sample <- readOGR(dsn = "Data/Generated/CleanedPeatDepthSamples_withCovariates", layer = paste(aoi, 'CleanedPD_withCovariates', sep = '_'))
 
 # Filepath to folder in which to save outputs
 output_fp <- paste("Data/Generated/CrossValidationResults/", aoi, sep = '')
@@ -55,8 +46,8 @@ if (duplication == 'drop'){
   # Check for the presence of points which are <1m together.
   # Delete one of each of these pairs of points.
   sample = find_nearestNeighours (sample, original_projection)
-  } else
-  {print ("duplicates kept")}
+} else
+{print ("duplicates kept")}
 
 # Convert projection system to that specified at start of file.
 sample <- convert_projection(sample, desired_projection)
@@ -70,18 +61,19 @@ sample_df$sqrtdepth <- sqrt(sample_df$depth)
 
 ################################################################################
 # Check model performance using the whole dataset
-lm_test <- check_lm(sample_df, covar_names)
-sm_test <- check_sm(sample_df, covar_names)
+lm_test <- check_lm(sample_df, c("elevation", "Slope_5m"))
+sm_test <- check_sm(sample_df, c("elevation", "Slope_5m"))
 
 ################################################################################
 # Perform cross validation
-results <- cross_validate (sample_df, covar_names)
+results <- cross_validate (sample_df, c("elevation", "Slope_5m"))
 
 # Store the results alongside the sample_df used to produce them
 results_ls <- list(results, sample_df)
 
 ################################################################################
 # Analyse results
+################################################################################
 options(scipen=999) # stops use of scientific notations
 
 # Create dataframe summarising the bias, RMSE, coverage and interval width
@@ -91,6 +83,7 @@ predicted_vs_observed <- create_predicted_vs_observed (results, sample_df)
 
 ################################################################################
 # Create directory to save results in if it doesn't exist already
+################################################################################
 if (dir.exists(output_fp) == FALSE) {
   dir.create(output_fp)}
 
