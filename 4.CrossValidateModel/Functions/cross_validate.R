@@ -2,20 +2,20 @@ cross_validate <- function (dat, covar_names) {
 "
 Description
 ----------
-    Fits a linear model on all of the data (as opposed to CV which only ever fits it on a subset of the data)
-    Calculates the residuals (difference between observed value of the dependent variable and the predicted value
-    - from the regression equation line).
+    F
 Parameters
 ----------
     dat: Data frame
-        A dataframe containing the locations of points and related data
-    covar_names: string
-        A string specifyingt the projection, either 'bng' or 'wgs84
+        A dataframe containing the locations of points with depth, slope and elevation values
+    covar_names: list
+        A list containing strings with the names of the variables being used as predictors
 Returns
 -------
-    resid: Spatial points data frame (spdf)
-        A spdf containing the locations of points and related data, with one from each of any pair of locations which
-        are <1m apart removed.
+    results: Array
+        A 3D array. For each of the 10 cross validation runs:
+            A 2D array with X rows (where X is the number of measured sample points) and 6 columns containing: 
+            (1) LM predicted value (2) LM lower prediction interval (3) LM Upper prediction interval
+            (4) LM predicted value (5) LM lower prediction interval (6) LM Upper prediction interval
 "   
 
   # Store the number of points in the dataframe
