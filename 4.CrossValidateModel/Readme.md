@@ -29,9 +29,9 @@ This script calls various functions contained within the Functions/ directory.
 * Check_lm.py --
 * Check_sm.py --
 
-##### cross_validate.R
-* cross_validate.py 
+##### Cross_validate.R
+* Cross_validate.py 
 
-##### analyse_results.R
+##### Analyse_results.R
 * Create_results.py -- Creates a table detailing for both the linear and geostatistical model statistics of model performance (bias, RMSE, coverage, interval width) 
 * Create_predicted_vs_observed.py -- Creates a table detailing for each location with a measured peat depth value, the mean peat depth value predicted at that location by both linear and geostatistical models across the cross-validation runs.
