@@ -1,6 +1,6 @@
-## Model Cross-Validation
+## Assessing model accuracy with cross-validation
 
-This script cross-validates the performance of both a linear and geostatistical model for predicting depth across a study area.
+This script assesses the performance of both a linear and geostatistical model for predicting depth across a study area, using 10-fold cross-validation.
 The models are fitted using a sample of points with peat depth measurements, this sample has been joined with slope and elevation data, and these variables are used as the predictor variables. 
 The square root of depth is the response variable.   
 
