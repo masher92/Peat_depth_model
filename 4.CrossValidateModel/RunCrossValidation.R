@@ -37,8 +37,27 @@ pd_sample <- readOGR(dsn = "Data/Generated/CleanedPeatDepthSamples_withCovariate
 output_fp <- paste("Data/Generated/CrossValidationResults/", aoi, sep = '')
 model_run_description <- paste(aoi, desired_projection, duplication, sep = '_')
 
+# Spatial Polygons Dataframe containing the outline of the study area (trimmed to Moorland Line)
+aoi_trimmed <- readOGR(dsn = "Data/Generated/StudyAreaTrimmedToMoorlandLine", layer = "humberstone_aoi_trimmed")
+
+################################################################################
+# Check plotting of sample
+################################################################################
+aoi_trimmed_wgs84 <- spTransform(aoi_trimmed, CRS("+init=epsg:4326"))
+pd_sample_wgs84 <- spTransform(pd_sample, CRS("+init=epsg:4326"))
+
+# Plot
+leaflet() %>% 
+  addProviderTiles(providers$OpenStreetMap) %>%  
+  addTiles() %>%
+  addPolygons(data = aoi_trimmed_wgs84, fillOpacity = 0, weight = 3) %>%
+  addCircles(data = pd_sample_wgs84, radius = 5, weight = 1, fillOpacity = 1, opacity=1, color = 'green', fillColor = 'green')  %>% 
+  addScaleBar(position = c("topright", "bottomright", "bottomleft",
+                           "topleft"), options = scaleBarOptions())
+
 ################################################################################
 # Process data
+################################################################################
 # Check for duplicated x,y locations - If duplication is set to drop then  delete duplicated locations
 if (duplication == 'drop'){
   print ("duplicates removed")
