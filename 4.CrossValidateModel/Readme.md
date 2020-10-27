@@ -1,8 +1,8 @@
 ## Assessing model accuracy with cross-validation
 
 The "RunCrossValidation.R" script assesses the performance of both a linear and geostatistical model for predicting depth across a study area, using 10-fold cross-validation.
-The models are fitted using a sample of points with peat depth measurements, this sample has been joined with slope and elevation data, and these variables are used as the predictor variables. 
-The square root of depth is the response variable.   
+The models are fitted using a sample of points with peat depth measurements.  The locations of these samples are shown in Figure 1.  
+This sample has been joined with slope and elevation data, and these variables are used as the predictor variables. The square root of depth is the response variable.   
 
 <p align="center">
 <img src="Figs/PeatDepthSample_locations.png" width="700"  title="Full study area outline" />
