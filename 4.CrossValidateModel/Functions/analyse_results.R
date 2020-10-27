@@ -1,10 +1,23 @@
-#------------------------------------------------------------------------------
-#1. Calculate metrics of interest
-# Define functions for calculating matrix of interest
-
-# Create function
 create_results <- function (area, results, dat){
-  # COunt the cases
+"
+Description
+----------
+    Uses a results array containing the values predicted in CV by both a linear and geostatistical model
+    to create a summary results dataframe with values for bias, rmse, coverage and interval width for both models
+Parameters
+----------
+    area: string
+        A string specifying the name of the study area
+    results: array
+        An array containing the results of the CV. This includes the 
+    dat: Dataframe
+        A dataframe containing rows with lat/long of locations with peat depth values
+Returns
+-------
+    summary_results: Dataframe
+        A dataframe containing values for bias, rmse, coverage and interval width for both models
+"   
+  # Count the cases
   n <- nrow(dat)
   #Bias - measures whether the predictions are too large or too small on average
   #- want to be as close to zero as possible but due to random variation will not
@@ -31,11 +44,26 @@ create_results <- function (area, results, dat){
   return(summary_results)
 }
 
-#------------------------------------------------------------------------------
-#2. Plots comparing mean predicted value to observed values
-
 create_predicted_vs_observed <- function (results, dat){
-  # COnvert to dataframe and save
+"
+Description
+----------
+    Uses an array containing all the values predicted in each iteration of cross validation to create a table comparing
+    real measured depth values with the mean values predicted for that point across cross-validation runs, by both a linear 
+    and geostatistical model
+Parameters
+----------
+    results: array
+        An array containing the results of the CV. This includes the 
+    dat: Dataframe
+        A dataframe containing rows with lat/long of locations with peat depth values
+Returns
+-------
+    predicted_vs_observed: Dataframe
+        A dataframe containing for each measured peat depth point, its real measured value and the mean value predicted across the cross-validation
+        runs. This is provided both in terms of square-root of depth and depth. 
+"   
+  # Convert to dataframe and save
   results_df <- as.data.frame(results)
   
   # Create a dataframe with the real values for each site, plus the mean of the ten predictions
