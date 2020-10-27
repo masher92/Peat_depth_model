@@ -22,6 +22,10 @@ The results of the cross-validation are used to create a table of results contai
 
 These results tables are saved in csv files.
 
-The script also plots predicted value vs. observed values.  
+Predicted values vs. observed values are also plotted.  
 For each point where depth was measured, this depth is the observed value and the predicted value is the mean of the values predicted across the cross-validation runs.
 
+<p align="center">
+<img src="Figs/LM_CV.PNG" width="700"  title="Full study area outline" />
+<img src="Figs/SM_CV.PNG" width="700"  title="Full study area outline" />
+<p align="center">Figure 1. Location of peat depth measurements within study area <p align="center">
