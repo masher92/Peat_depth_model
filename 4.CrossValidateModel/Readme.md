@@ -22,8 +22,10 @@ For each point where depth was measured, this depth is the observed value and th
 This script calls various functions contained within the Functions/ directory.  
 
 ##### Clean_pd.R
-* Find_duplication.py -- searches for peat depth points in the sample with duplicated lat/long coordinates. If it finds them, deletes duplicates to keep only one   
-* Find_nearestNeighours.py -- searches for peat depth points in the sample which are less than 1m apart. If it finds them, deletes points to keep only one   
+* Find_duplication.py 
+    * Searches for peat depth points in the sample with duplicated lat/long coordinates. If it finds them, deletes duplicates to keep only one   
+* Find_nearestNeighours.py 
+    * Searches for peat depth points in the sample which are less than 1m apart. If it finds them, deletes points to keep only one   
 
 ##### Check_models.R
 * Check_lm.py --
