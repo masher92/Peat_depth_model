@@ -15,5 +15,5 @@ Once the results of the cross-validation have been obtained, the script creates 
 
 These results tables are saved in csv files.
 
-The script also plots predicted value vs. observed values. 
+The script also plots predicted value vs. observed values.  
 For each point where depth was measured, this depth is the observed value and the predicted value is the mean of the values predicted across the cross-validation runs.
