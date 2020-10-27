@@ -29,15 +29,20 @@ shift_grid <- function(grid, grid_spacing, n_shifts){
   
   # Create a dataframe containing amounts to shift x, y coordiantes
   # Each should be unique
-  for (i in (1:80)){
+  # Add more repetitions than the n_shifts to account for duplicated rows having to be removed
+  for (i in (1:n_shifts+100)){
     position <- data.frame(sample(long_range,1), sample(lat_range,1))
-    if (nrow(match_df(all_positions, position))==0){
-      all_positions <- rbind(all_positions, position)}}
+    # Rename columns
+    colnames(position) <- c('Long', 'Lat')
+    # If this position is not already in the list of positions
+    if (nrow(match_df(all_positions, position, on = c("Long", "Lat")))==0){
+      all_positions <- rbind(all_positions, position)} }
   
   # Trim to be just 50 long
   all_positions <- all_positions[c(1:n_shifts),]
   
-  # Check if any of the rows are duplicated
+  # Check if any of the rows are duplicated (they shouldn't be as this is already accounted for)
+  print ("If all return FALSE, then all grid shifts are unique")
   print(data.frame(table(duplicated(grid_shifts[,c(1:2)]))))
   
   return (all_positions)}

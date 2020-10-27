@@ -68,8 +68,8 @@ sm_test <- check_sm(pd_sample_df, c("elevation", "Slope_5m"))
 # Perform cross validation
 results <- cross_validate (pd_sample_df, c("elevation", "Slope_5m"))
 
-# Store the results alongside the sample_df used to produce them
-results_ls <- list(results, sample_df)
+# Store the results alongside the pd_sample_df used to produce them
+results_ls <- list(results, pd_sample_df)
 
 ################################################################################
 # Analyse results
@@ -77,9 +77,9 @@ results_ls <- list(results, sample_df)
 options(scipen=999) # stops use of scientific notations
 
 # Create dataframe summarising the bias, RMSE, coverage and interval width
-summary_results <- create_results (aoi, results, sample_df)
+summary_results <- create_results (aoi, results, pd_sample_df)
 # Compare the predicted values with the observed values
-predicted_vs_observed <- create_predicted_vs_observed (results, sample_df)
+predicted_vs_observed <- create_predicted_vs_observed (results, pd_sample_df)
 
 ################################################################################
 # Create directory to save results in if it doesn't exist already

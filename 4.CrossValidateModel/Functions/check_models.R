@@ -9,22 +9,22 @@ Parameters
 ----------
     dat: Data frame
         A dataframe containing the locations of points and related data
-    covar_names: string
-        A string specifyingt the projection, either 'bng' or 'wgs84
+    covar_names: list
+        A list containing strings with the names of the variables being used as predictors
 Returns
 -------
-    resid: Spatial points data frame (spdf)
-        A spdf containing the locations of points and related data, with one from each of any pair of locations which
-        are <1m apart removed.
+    resid: list?
+        A 
 "   
   
   # Define the formula to be used in linear model
   Formula <- formula(paste("sqrtdepth~ ", 
                            paste(covar_names, collapse=" + ")))
-  # Apply it to the linear model
+  # Apply it to all the locations with measured depth values
   mod.lm.test <- lm(Formula, dat)
-  # Sumamrise
+  # Summarise the results
   summary(mod.lm.test)
+  # Find the residuals
   resid <- residuals(mod.lm.test)
   plot(resid)
   qqnorm(resid)
@@ -37,20 +37,19 @@ check_sm <- function (dat, covar_names){
   "
 Description
 ----------
-    Fits a linear model on all of the data (as opposed to CV which only ever fits it on a subset of the data)
+    Fits a geostatistical model on all of the data (as opposed to CV which only ever fits it on a subset of the data)
     Calculates the residuals (difference between observed value of the dependent variable and the predicted value
     - from the regression equation line).
 Parameters
 ----------
     dat: Data frame
         A dataframe containing the locations of points and related data
-    covar_names: string
-        A string specifyingt the projection, either 'bng' or 'wgs84
+    covar_names: list
+        A list containing strings with the names of the variables being used as predictors4
 Returns
 -------
-    resid: Spatial points data frame (spdf)
-        A spdf containing the locations of points and related data, with one from each of any pair of locations which
-        are <1m apart removed.
+    resid: list?
+        A 
 "   
   sp_depth <- as.geodata(obj=dat, coords.col=c('longitude', 'latitude'), data.col="sqrtdepth", covar.col = covar_names)
   
