@@ -4,9 +4,9 @@
 * This script defines the boundaries of the study region.  
 * It takes a shapefile for the area of interest, and trims this to the Moorland Line shapefile to ensure that no area outside of the Moorland Line (i.e. not peatland) is included.
 
-<p align="left">
-<img src="Figs/StudyArea.PNG" width="200"  title="Original 1km grid" />
-<img src="Figs/StudyArea_TrimmedToMoorlandLine.PNG" width="200"  title="Original 1km grid" />  
+<p align="center">
+<img src="Figs/StudyArea.PNG" width="500"  title="Full study area outline" />
+<img src="Figs/StudyArea_TrimmedToMoorlandLine.PNG" width="500"  title="Study Area trimmed to Moorland Line" />  
 </p>
 <p align="center">Figure 7. JJA Mean for all hours <p align="center">
 
