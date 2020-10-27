@@ -17,8 +17,8 @@ The "RunCrossValidation.R" script calls various functions contained within this 
 * Cross_validate.py 
    * Performs 10-fold cross-validation on both the linear and geostatistical model and returns a 3D array, which for each of the 10 cross validation runs includes:  
          * A 2D array with X rows (where X is the number of measured sample points) and 6 columns containing:  
-            * (1) LM predicted value (2) LM lower prediction interval (3) LM Upper prediction interval
-            * (4) LM predicted value (5) LM lower prediction interval (6) LM Upper prediction interval
+            (1) LM predicted value (2) LM lower prediction interval (3) LM Upper prediction interval
+            (4) LM predicted value (5) LM lower prediction interval (6) LM Upper prediction interval
 
 ##### Analyse_results.R
 * Create_results.py
