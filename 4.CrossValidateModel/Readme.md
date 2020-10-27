@@ -4,6 +4,10 @@ The "RunCrossValidation.R" script assesses the performance of both a linear and 
 The models are fitted using a sample of points with peat depth measurements, this sample has been joined with slope and elevation data, and these variables are used as the predictor variables. 
 The square root of depth is the response variable.   
 
+<p align="center">
+<img src="Figs/PeatDepthSample_locations.PNG" width="700"  title="Full study area outline" />
+<p align="center">Figure 1. Location of peat depth measurements within study area <p align="center">
+
 The peat depth sample being used here contains some duplicated points and some very geographically close points. The script contains an option to remove these points. 
 
 Once the results of the cross-validation have been obtained, the script creates a table of results containing the following metrics, for both the linear and the geostatistical model:
