@@ -1,11 +1,30 @@
 cross_validate <- function (dat, covar_names) {
+"
+Description
+----------
+    Fits a linear model on all of the data (as opposed to CV which only ever fits it on a subset of the data)
+    Calculates the residuals (difference between observed value of the dependent variable and the predicted value
+    - from the regression equation line).
+Parameters
+----------
+    dat: Data frame
+        A dataframe containing the locations of points and related data
+    covar_names: string
+        A string specifyingt the projection, either 'bng' or 'wgs84
+Returns
+-------
+    resid: Spatial points data frame (spdf)
+        A spdf containing the locations of points and related data, with one from each of any pair of locations which
+        are <1m apart removed.
+"   
 
-  # Store the number of cases
+  # Store the number of points in the dataframe
   n <- nrow(dat)
 
   #------------------------------------------------------------------------------
-  #4. # Conduct the cross validation exercise
-  #Array - rows, columns, number of arrays
+  # Conduct the cross validation 
+  # Create an empty array (specifying the number of rows, columns, number of arrays)
+  # This will store the results from each iteration of the cross-validation
   results <- array(NA, c(n, 6,10))
   colnames(results) <- c("pred_LM", "LPI_LM", "UPI_LM", "pred_SM", "LPI_SM",
                          "UPI_SM")
@@ -18,6 +37,7 @@ cross_validate <- function (dat, covar_names) {
       split_m_total <- length(data.order)
       split_m_G2 <- as.integer(split_m_total / 10)
       split_m_size <- length(data.order) %% 10
+      
       #Therefore split_m_size chunks will have size split_m_G2 + 1 and the
       #remaining will have size split_size_G2
       split_m_G1 <- split_m_G2 + 1
