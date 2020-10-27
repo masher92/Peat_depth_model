@@ -17,6 +17,15 @@ ml_buff <- gBuffer(ml, byid=TRUE, width=0)
 aoi_buff <- gBuffer(aoi, byid=TRUE, width=0)
 aoi_trimmed <- crop(ml_buff, aoi_buff)
 
+# Check plotting
+aoi_trimmed_wgs84 <- spTransform(aoi_trimmed, CRS("+init=epsg:4326"))
+aoi_wgs84 <- spTransform(aoi, CRS("+init=epsg:4326"))
+leaflet() %>% 
+  addProviderTiles(providers$OpenStreetMap) %>%  
+  addTiles() %>% 
+ # addPolygons(data = aoi_trimmed_wgs84, fillOpacity = 0, weight = 3, color  = 'black') %>%
+  addPolygons(data = aoi_wgs84, fillOpacity = 0, weight = 3, color  = 'black')
+
 # Save to file
 writeOGR(obj=aoi_trimmed, dsn="Data/Generated/StudyAreaTrimmedToMoorlandLine", layer="aoi_trimmed", driver="ESRI Shapefile")
 

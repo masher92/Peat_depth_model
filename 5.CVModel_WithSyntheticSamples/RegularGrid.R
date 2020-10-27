@@ -102,12 +102,25 @@ for (i in 1:50){
   # Convert projection to spdf for use in gBuffer (in assign depths?)
   shifted_grid_spdf <- SpatialPointsDataFrame(coords = shifted_grid_df[c(1:2)], data = shifted_grid_df[c(3:4)],proj4string =  CRS("+init=epsg:27700"))
   shifted_grid_spdf <- spTransform(shifted_grid_spdf, CRS("+init=epsg:4326"))
+
+  ###### Check plotting of sample
+  # aoi_trimmed_wgs84 <- spTransform(aoi_trimmed, CRS("+init=epsg:4326"))
+  # shifted_grid_df_wgs84 <- spTransform(shifted_grid_spdf, CRS("+init=epsg:4326"))
+  # 
+  # # Plot
+  # leaflet() %>% 
+  #   addProviderTiles(providers$OpenStreetMap) %>%  
+  #   addTiles() %>%
+  #   addPolygons(data = aoi_trimmed_wgs84, fillOpacity = 0, weight = 3) %>%
+  #   addCircles(data = shifted_grid_spdf, radius = 5, weight = 1, fillOpacity = 1, opacity=1, color = 'green', fillColor = 'green')  %>% 
+  #   addScaleBar(position = c("topright", "bottomright", "bottomleft",
+  #                            "topleft"), options = scaleBarOptions())
   
   # COnvert to dataframe
   shifted_grid_df <- as.data.frame(shifted_grid_spdf)
   
   #########################################################################
-  # Assign depths
+  # Assign depths - the spatial points dataframe needs to be in WGS84
   #########################################################################
   shifted_grid_df <- assign_depths(pd_sample_pts_with_covars,shifted_grid_df)
   # Add a square root of depth

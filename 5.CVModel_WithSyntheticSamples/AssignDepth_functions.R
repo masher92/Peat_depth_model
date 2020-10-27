@@ -55,7 +55,7 @@ Returns
   row_with_depth = as.data.frame(row_to_check)
   
   return(list(row_with_depth, smallest_distance))}
-
+shifted_grid_sr_df
 
 assign_depths <- function (pd_sample_pts_with_covars, synthetic_sample_locations){
 "
