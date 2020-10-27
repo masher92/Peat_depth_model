@@ -17,3 +17,16 @@ These results tables are saved in csv files.
 
 The script also plots predicted value vs. observed values.  
 For each point where depth was measured, this depth is the observed value and the predicted value is the mean of the values predicted across the cross-validation runs.
+
+### Functions
+This script calls various functions contained within the Functions/ directory.  
+
+##### clean_pd.R
+* find_duplication -- searches for peat depth points in the sample with duplicated lat/long coordinates. If it finds them, deletes duplicates to keep only one   
+* find_nearestNeighours -- searches for peat depth points in the sample which are less than 1m apart. If it finds them, deletes points to keep only one   
+
+##### check_models.R
+
+##### cross_validate.R
+
+##### analyse_results.R
