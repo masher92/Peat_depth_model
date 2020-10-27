@@ -2,7 +2,8 @@ cross_validate <- function (dat, covar_names) {
 "
 Description
 ----------
-    F
+    Cross-validates the performance of both a linear and geostatistical model.
+    10 cross-validation runs with
 Parameters
 ----------
     dat: Data frame
