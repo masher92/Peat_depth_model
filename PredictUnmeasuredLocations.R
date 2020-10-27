@@ -1,3 +1,6 @@
+#################################################################
+# Set up environment
+#################################################################
 library(rgdal)
 library(raster)
 library(geoR)
@@ -8,37 +11,40 @@ library (rgeos)
 library(gdistance)
 
 # Set working directory
-setwd("E:/Msc/Dissertation/Code")
+root_fp = "C:/Users/gy17m2a/OneDrive - University of Leeds/Msc/"
+setwd("C:/Users/gy17m2a/OneDrive - University of Leeds/Msc/Dissertation/DataAnalysis/")
 
 # Source files containing functions
-source("Peat_depth_model/Functions/clean_pd.R")
-source("Peat_depth_model/Functions/cross_validate.R")
-source("Peat_depth_model/Functions/check_models.R")
-source("Peat_depth_model/Functions/analyse_results.R")
+source("Code/Peat_depth_model-master/Functions/clean_pd.R")
+source("Code/Peat_depth_model-master/Functions/cross_validate.R")
+source("Code/Peat_depth_model-master/Functions/check_models.R")
+source("Code/Peat_depth_model-master/Functions/analyse_results.R")
 
-# Define whether to use BNG or decimal degrees projection
-# Define whether to keep the duplicates in or not
+#################################################################
+# Define variables
+#################################################################
+# Define whether to use BNG ('bng') or decimal degrees projection ('wgs84')
 projection <- 'wgs84' 
+# Define whether to keep the duplicates in ('keep') or not ('drop')
 duplication <- 'keep'
 
-# Check metrics available
-#dir("Data/Input/Metrics/Metrics_40")
-
-# Read in metrics
+#################################################################
+# Read in covariate data
+#################################################################
+# Read in raster files to be used as co-variates
 dtm <-raster("Data/Input/DTM/Dales_Nidderdale_Moorland_Line_DTM_5m.tif")
 slope <-raster("Data/Input/DTM/Dales_Nidderdale_Moorland_Line_Slope_5m.tif")
 
-#w_hhhh = raster("Data/Input/Metrics/Metrics_40/w_hhhh_40.0.asc")
-#count_hhhh = raster("Data/Input/Metrics/Metrics_40/count_hhhh_40.0.asc")
-#w_llll = raster("Data/Input/Metrics/Metrics_40/w_llll_40.0.asc")
-#count_llll = raster("Data/Input/Metrics/Metrics_40/count_llll_40.0.asc")
+# Set up a list with covariate names (for renaming in function)
+covars <- c(dtm, slope) 
+covar_names <- c("elevation", "Slope_5m") 
 
-# Define which variables to use as covariates, and set up a list with their names (for renaming in function)
-covars <- c(dtm, slope) #, w_hhhh, w_llll)
-covar_names <- c("elevation", "Slope_5m") #"W_hhhh", "W_llll", 
 
+#################################################################
+#
+#################################################################
 # Create dataframe with depth measurements and slope/elevation if it doesn't exist already
-if (file.exists("E:/Msc/Dissertation/Code/Data/Generated/humberstone.shp")){
+if (file.exists("Data/Generated/humberstone.shp")){
   print ("Reading shapefile from folder.")
   shp = readOGR(dsn = "Data/Generated", layer = "humberstone")} else
   {print ("Creating shapefile")
