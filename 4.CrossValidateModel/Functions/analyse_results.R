@@ -9,7 +9,10 @@ Parameters
     area: string
         A string specifying the name of the study area
     results: array
-        An array containing the results of the CV. This includes the 
+        A 3D array containing the results of the CV. This contains for each of the 10 cross validation runs:
+            A 2D array with X rows (where X is the number of measured sample points) and 6 columns containing: 
+            (1) LM predicted value (2) LM lower prediction interval (3) LM Upper prediction interval
+            (4) LM predicted value (5) LM lower prediction interval (6) LM Upper prediction interval
     dat: Dataframe
         A dataframe containing rows with lat/long of locations with peat depth values
 Returns
@@ -54,7 +57,10 @@ Description
 Parameters
 ----------
     results: array
-        An array containing the results of the CV. This includes the 
+        A 3D array containing the results of the CV. This contains for each of the 10 cross validation runs:
+            A 2D array with X rows (where X is the number of measured sample points) and 6 columns containing: 
+            (1) LM predicted value (2) LM lower prediction interval (3) LM Upper prediction interval
+            (4) LM predicted value (5) LM lower prediction interval (6) LM Upper prediction interval
     dat: Dataframe
         A dataframe containing rows with lat/long of locations with peat depth values
 Returns
