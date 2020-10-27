@@ -12,7 +12,8 @@ This sample has been joined with slope and elevation data, and these variables a
 
 The peat depth sample being used here contains some duplicated points and some very geographically close points. The script contains an option to remove these points. 
 
-Once the results of the cross-validation have been obtained, the script creates a table of results containing the following metrics, for both the linear and the geostatistical model:
+#### Assessing model accuracy
+The results of the cross-validation are used to createa a table of results containing the following metrics, for both the linear and the geostatistical model:
 * Bias
 * Root Mean Squared Error (RMSE)
 * Coverage
