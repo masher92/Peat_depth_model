@@ -1,4 +1,4 @@
-# Impact of depth sampling strategy on geostatistical model accuracy
+## Assessing impact of depth sampling strategy on model accuracy with cross-validation
 A major component of this research was evaluating the impact on the geostatistical model performance of the method used to collect the peat depth samples used in the model.
 In particular, we were interested in:
 1. The density of samples in a grid formation required to realise geostatistical model benefits; and
