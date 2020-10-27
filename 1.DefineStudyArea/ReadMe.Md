@@ -1,4 +1,4 @@
-## 1. Define the study area
+## Defining the study area
 
 #### DefineStudyArea.R
 * This script defines the boundaries of the study region.  
