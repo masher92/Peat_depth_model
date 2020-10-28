@@ -1,4 +1,5 @@
 ## Assessing impact of depth sampling strategy on model accuracy 
+Figure 1 displays examples of each of the four sampling configurations tested:  
 <p align="center">
 <img src="Figs/RegularGrid_100m.png" width="240"  />  
   <img src="Figs/RegularGrid_sr_100m.png" width="240"  />  
@@ -6,15 +7,13 @@
      <img src="Figs/SPCosa_100m.png" width="240"  />  
 <p align="center"> Figure 1. Regular grid (1), regular grid with short distance subset (2), spatial coverage sample (3) and spatial coverage sample with short distance subset (4) <p align="center">
 
-Figure 1 displays examples of each of the four sampling configurations tested: Samples containing points in the following formations are created:
-
+These samples are created and used to test model performance in the following scripts:  
 1. Regular grid (RegularGrid.R)
 2. Regular grid with short distance subset (RegularGrid_Sr.R)
 3. Spatial Coverage sample (SPCosa.R)
 4. Spatial coverage sample with short distance subset (SPCosa_sr.R)
 
-
-For each of these, samples of various sizes (i.e. various numbers of sample points) are defined.  
+In each case, samples of various sizes (i.e. various numbers of sample points) are defined.  
 Collecting manual depth samples using all of these strategies, and various sample sizes, would require an unfeasible amount of time and labour, and so instead, synthetic depths are generated programmatically (using function defined in CreateSyntheticSample_functions.R).  
 Both linear and geostatistical model performance is then assessed through cross-validation using these synthetic peat depth datasets.
 
