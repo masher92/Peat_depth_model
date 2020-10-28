@@ -8,13 +8,13 @@ The "RunCrossValidation.R" script calls various functions contained within this 
     * Searches for peat depth points in the sample which are less than 1m apart. If it finds them, deletes points to keep only one   
 
 ##### Check_models.R
-* Check_lm.py
+* Check_lm.py  
       * Checks the performance of the linear model fitted on the whole dataset
-* Check_sm.py
+* Check_sm.py  
       * Checks the performance of the geostatistical model fitted on the whole dataset
 
 ##### Cross_validate.R
-* Cross_validate.py 
+* Cross_validate.py  
    * Performs 10-fold cross-validation on both the linear and geostatistical model and returns a 3D array, which for each of the 10 cross validation runs includes:  
          * A 2D array with X rows (where X is the number of measured sample points) and 6 columns containing:  
             (1) LM predicted value (2) LM lower prediction interval (3) LM Upper prediction interval
