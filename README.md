@@ -45,20 +45,21 @@ The accuracy of two different statistical models of peat depth was compared, bas
 2. A geostatistical model configured with slope and elevation covariates using universal kriging
 
 The input to both model is a dataframe with each row containing:
-* The latitude and longitude of the location
-* The peat depth measured at the location
+* The latitude and longitude of a location
+* The peat depth measured at that location
 * The slope and elevation value at that location
 
-Predictive performance of both models is assessed using 10-fold cross-validation. The dataset is randomly split into ten subsets. Iteratively, the model is fitted on nine subsets and tested on the remaining one, until each subset had been used as testing data. This whole process is repeated ten times, with each based on a different starting random subset split, to reduce the probability of model artefacts due to subset selection.  
+Predictive performance of both models is assessed using 10-fold cross-validation.  
+The peat depth measurements dataset is randomly split into ten subsets. Iteratively, the model is fitted on nine subsets and tested on the remaining one, until each subset has been used as testing data. This whole process is repeated ten times, with each based on a different starting random subset split, to reduce the probability of model artefacts due to subset selection.  
 
 <ins> 1. DefineStudyArea </ins>  
 This directory contains code which defines the boundaries of the study area within which we are attempting to predict peat depth.  
 <ins> 2. CleanDepthSampleData </ins>  
-This directory contains code which cleans peat depth sample data for four study areas in the Yorkshire Dales to ensure they all take the same structure e.g. X, Y coordinates accompanied by a peat depth data column 'Depth'. 
+This directory contains code which cleans peat depth sample data for four study areas in the Yorkshire Dales to ensure they all take the same structure e.g. X, Y coordinates accompanied by a peat depth data column 'Depth'.   
 <ins> 3. JoinDepthDataWithCovariates </ins>  
-This directory contains code which extracts the slope and elevation value at each location with a measured peat depth value.     
-<ins> 4. CrossValidateModel </ins>
-This directory contains code which uses the resulting dataset (locations in the study area with peat depth measurements and slope and elevation values) to cross validate the performance of both a linear and geostatistical model. The results of the cross-validation are used to create a table of results containing the following metrics: bias, root mean squared error, coverage, prediction interval width and correlation coefficient. 
+This directory contains code which extracts for each location with a measured peat depth value a slope and elevation value using raster files at 5m resolution from Digimap.       
+<ins> 4. CrossValidateModel </ins>  
+This directory contains code which uses the dataset resulting from the above stages (containing locations in the study area with peat depth measurements and slope and elevation values) to cross validate the performance of both a linear and geostatistical model. The results of the cross-validation are used to create a table of results containing the following metrics: bias, root mean squared error, coverage, prediction interval width and correlation coefficient.   
 <ins> 5. PredictUnmeasuredLocations </ins>  
 Uses the existing peat depth sample data to fit the model and then uses this fitted model to make predictions across the whole AOI.  
 
