@@ -15,3 +15,4 @@
 * Convert these trimmed rasters to dataframes, in which lat/long values (the centre of the raster cells) are associated with a slope and elevation value.  
 * Join the slope and elevation dataframes together.  
 * This results in a dataframe containing locations within the study area at 5m intervals with slope and elevation values
+* This is used both in creating the synthetic sample datasets (to define short range sample point) and in predicting depth values across the whole study area.
