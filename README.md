@@ -23,6 +23,17 @@ model accuracy, is observed.
 * To explore alternative approaches to manual sampling in blanket peatlands which facilitate accurate geostatistical modelling of depth whilst minimising sample number
 requirements.
 
+<a name="install"></a>
+## Installation
+Running this code requires installation of R.
+Packages required include:
+* Spcosa
+* raster
+* rgdal
+* geosphere
+* rgeos
+* geoR
+
 <a name="use"></a>
 ## How to use
 
