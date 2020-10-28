@@ -7,10 +7,10 @@ Samples containing points in the following formations are created:
 * Spatial coverage sample with short distance subset (SPCosa_sr.R)
 
 <p align="center">
-<img src="Figs/RegularGrid_100m.png" width="250"  />  
-  <img src="Figs/RegularGrid_sr_100m.png" width="250"  />  
-   <img src="Figs/SPCosa_sr_100m.png" width="250"  />  
-     <img src="Figs/SPCosa_100m.png" width="250"  />  
+<img src="Figs/RegularGrid_100m.png" width="240"  />  
+  <img src="Figs/RegularGrid_sr_100m.png" width="240"  />  
+   <img src="Figs/SPCosa_sr_100m.png" width="240"  />  
+     <img src="Figs/SPCosa_100m.png" width="240"  />  
 <p align="center"> Figure 1. Slope (left) and elevation (right) profiles over the study area <p align="center">
 
 
