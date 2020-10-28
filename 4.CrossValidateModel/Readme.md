@@ -28,10 +28,13 @@ Predicted values vs. observed values are also plotted.
 For each point where depth was measured, this depth is the observed value and the predicted value is the mean of the values predicted across the cross-validation runs.
 
 ### Results
+The geostatistical model consistently outperformed the corresponding linear model, exhibiting a lower RMSE, higher CC and narrower prediction intervals. For both models, the
+coverage probability was just short of the 95% value which was expected and the bias was close to 0 (Table 5.1).
+
+<p align="center">Table 1. Performance metrics derived from 10-fold cross-validation of both linear and geostatistical
+model performance. <p align="center">
 <p align="center">
 <img src="Figs/PerformanceMetrics.PNG" width="400" />
-<p align="center">Figure 2. Performance metrics derived from 10-fold cross-validation of both linear and geostatistical
-model performance. <p align="center">
 
 <p align="center">
 <img src="Figs/LM_CV.PNG" width="400"  />
