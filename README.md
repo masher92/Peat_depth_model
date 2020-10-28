@@ -7,8 +7,8 @@ Mapping the spatial distribution of peatland depth is vital for quantifying the 
 1. [ Motivation. ](#motiv)
 2. [ Installation. ](#install)
 3. [ Workflow. ](#workflow)  
-  a. [ Geostatistical modelling. ](#workflow)  
-  b. [ Synthetic samples. ](#workflow)  
+  a. [ Geostatistical modelling. ](#workflowa)  
+  b. [ Investigating the impact of sample configuration on geostatistical model performance. ](#workflowb)  
 4. [ Example Usage. ](#ex)
 5. [ Next stages. ](#nextup)
 6. [ License. ](#lic)
@@ -38,6 +38,12 @@ Packages required include:
 
 <a name="workflow"></a>
 ## Workflow
+<a name="workflowa"></a>
+###  Geostatistical modelling peat depth
+
+
+<a name="workflowb"></a>
+###  Investigating the impact of sample configuration
 
 The input to the model is a dataframe containing the following information:
 * Lat and long coordinates 
