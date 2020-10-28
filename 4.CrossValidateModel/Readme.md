@@ -29,11 +29,11 @@ For each point where depth was measured, this depth is the observed value and th
 
 ### Results
 <p align="center">
-<img src="Figs/Performance_metrics.PNG" width="400"  title="Full study area outline" />
+<img src="Figs/PerformanceMetrics.PNG" width="400" />
 <p align="center">Figure 2. Performance metrics derived from 10-fold cross-validation of both linear and geostatistical
 model performance. <p align="center">
 
 <p align="center">
-<img src="Figs/LM_CV.PNG" width="400"  title="Full study area outline" />
-<img src="Figs/SM_CV.PNG" width="400"  title="Full study area outline" />
+<img src="Figs/LM_CV.PNG" width="400"  />
+<img src="Figs/SM_CV.PNG" width="400"  />
 <p align="center">Figure 3. Predicted vs observed depth values, for linear model (left) and spatial model (right) <p align="center">
