@@ -13,8 +13,8 @@ Focussing on a blanket peatland in the Yorkshire Dales, the work is split into t
 1. [ Motivation. ](#motiv)
 2. [ Installation. ](#install)
 3. [ Workflow. ](#workflow)  
-  a. [ Determining whether a geostatistical model of peat depth improves on the performance of a linear model . ](#workflowa)  
-  b. [ Exploring how sampling strategies influence geostatistical model accuracy. ](#workflowb)  
+  a. [ Comparing geostatistical and linear model performance. ](#workflowa)  
+  b. [ Exploring the impact of sampling strategy ](#workflowb)  
 4. [ Example Usage. ](#ex)
 5. [ Next stages. ](#nextup)
 6. [ License. ](#lic)
@@ -38,11 +38,11 @@ Packages required include:
 <a name="workflow"></a>
 ## Workflow
 <a name="workflowa"></a>
-###  Geostatistical modelling peat depth
+###  Determining whether a geostatistical model of peat depth improves on the performance of a linear model 
 
 
 <a name="workflowb"></a>
-###  Investigating the impact of sample configuration
+###  Exploring how sampling strategies influence geostatistical model accuracy.
 
 The input to the model is a dataframe containing the following information:
 * Lat and long coordinates 
