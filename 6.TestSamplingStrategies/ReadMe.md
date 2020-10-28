@@ -46,7 +46,7 @@ Create a buffer around these points of Xm, and then find the points from the geo
 Randomly select from these points X number of points (depending on number of points to have in each cluster)
 
 <p align="center">
-<img src="Figs/200M_SR4.png" width="500"  />  
+<img src="Figs/200M_SR4.PNG" width="500"  />  
 <p align="center"> Figure 1. Slope (left) and elevation (right) profiles over the study area <p align="center">
 
 ##### Assigning synthetic depth values
