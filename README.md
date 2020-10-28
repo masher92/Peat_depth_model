@@ -73,8 +73,8 @@ Uses the existing peat depth sample data to fit the model and then uses this fit
 ## Next stages
 Additional stages which could be explored and would contribute further to the outputs of this research:  
 1. This researches focusses solely on the sample’s coverage of geographic space. Further improvements of geostatistical model performance may be possible through additional optimisation of sample coverage of the covariate feature space. Options for achieving this:
-  * Use stratified sampling to take samples with the same proportion of slope/elevation categories as the study area as a whole. 
-  * When choosing the short range subset this could be biased towards choosing extra sample points in areas with certain topographic characteristics
+    * Use stratified sampling to take samples with the same proportion of slope/elevation categories as the study area as a whole. 
+    * When choosing the short range subset this could be biased towards choosing extra sample points in areas with certain topographic characteristics
 
 <a name="ref"></a>
 ## References
