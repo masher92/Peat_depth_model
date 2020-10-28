@@ -1,19 +1,17 @@
 ## Assessing impact of depth sampling strategy on model accuracy 
-Samples containing points in the following formations are created:
-
-* Regular grid (RegularGrid.R)
-* Regular grid with short distance subset (RegularGrid_Sr.R)
-* Spatial Coverage sample (SPCosa.R)
-* Spatial coverage sample with short distance subset (SPCosa_sr.R)
-
-Examples of each are displayed in Figure 1.
-
 <p align="center">
 <img src="Figs/RegularGrid_100m.png" width="240"  />  
   <img src="Figs/RegularGrid_sr_100m.png" width="240"  />  
    <img src="Figs/SPCosa_sr_100m.png" width="240"  />  
      <img src="Figs/SPCosa_100m.png" width="240"  />  
-<p align="center"> Figure 1. Regular Grid (1), Regular grid with short distance subset (2), spatial coverage sample (3) and spatial coverage sample with short distance subset (4) <p align="center">
+<p align="center"> Figure 1. Regular grid (1), regular grid with short distance subset (2), spatial coverage sample (3) and spatial coverage sample with short distance subset (4) <p align="center">
+
+Figure 1 displays examples of each of the four sampling configurations tested: Samples containing points in the following formations are created:
+
+1. Regular grid (RegularGrid.R)
+2. Regular grid with short distance subset (RegularGrid_Sr.R)
+3. Spatial Coverage sample (SPCosa.R)
+4. Spatial coverage sample with short distance subset (SPCosa_sr.R)
 
 
 For each of these, samples of various sizes (i.e. various numbers of sample points) are defined.  
