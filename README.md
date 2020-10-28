@@ -20,13 +20,7 @@ Mapping the spatial distribution of peatland depth is vital for quantifying the 
 
 Geostatistical model accuracy relies on samples being both spatially dependent and evenly distributed. A gridded layout is often favoured for peat depth sampling; however, evidence from Digital Soil Mapping (DSM) indicates that geostatistical model accuracy can be improved with alternative sampling approaches.
 
-* [Section 3b.](#workflowa) of this work explores how sampling strategies influence geostatistical model accuracy, through investigating i) the grid resolution required to harness geostatistical model benefits and (ii) whether alternative sample layouts allow benefits to be realised with fewer sample points.
-
-In particular, this section investigates the use of:
-* A spatial coverage sample which avoids the rigidity of a grid design whilst still dispersing samples well ([Walvoort et al., 2010](#walvoort2010)). 
-* Both Short range
-
-DSM research by [Wadoux et al (2019)](#wadoux2019) also indicates the importance of including some tightly spaced observations to allow the model to characterise spatial dependency over short distances.
+* [Section 3b.](#workflowa) of this work explores how sampling strategies influence geostatistical model accuracy, through investigating i) the grid resolution required to harness geostatistical model benefits and (ii) whether alternative sample layouts allow benefits to be realised with fewer sample points. In particular, a spatial coverage sample which avoids the rigidity of a grid design whilst still dispersing samples well ([Walvoort et al., 2010](#walvoort2010)) is considered, as is the addition of clusters of points at shorter distances from one another to both spatial coverage samples and samples collected on a regular grid. DSM research by [Wadoux et al (2019)](#wadoux2019) indicates the importance of including some tightly spaced observations to allow the model to characterise spatial dependency over short distances.
 
 
 <a name="install"></a>
