@@ -3,7 +3,12 @@ cross_validate <- function (dat, covar_names) {
 Description
 ----------
     Cross-validates the performance of both a linear and geostatistical model.
-    10 cross-validation runs with
+    Thsi includes 10 cycles of cross-validation
+    This is to ensure that the results are robust to the choice of random subsets.
+    For each cycle:
+      Split the data randomly into ten subsets of approximately the same size
+      Fit the models using the data from 9 of the seubsets, and use the fitted model to predict depth values for the remaining tenth subset
+      Repeat this process, leaving each of the ten subsets out once.
 Parameters
 ----------
     dat: Data frame
@@ -30,7 +35,12 @@ Returns
   colnames(results) <- c("pred_LM", "LPI_LM", "UPI_LM", "pred_SM", "LPI_SM",
                          "UPI_SM")
 
-  # Loop over the 10 replications of splitting the data into 10 equally size groups.
+ # Loop through 10 cycles of cross-validation
+ # This is to ensure that the results are robust to the choice of random subsets.
+ # For each cycle:
+    # Split the data randomly into ten subsets of approximately the same size
+    # Fit the models using the data from 9 of the seubsets, and use the fitted model to predict depth values for the remaining tenth subset
+    # Repeat this process, leaving each of the ten subsets out once.
   for(r in 1:10) {
     print(r)
     {

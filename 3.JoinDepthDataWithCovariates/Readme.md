@@ -4,6 +4,13 @@ Both the linear model and the geostatistical model use slope and elevation data 
 As such, it is necessary to define slope and elevation values at the locations where the depth has been measured.  
 Slope and elevation values are downloaded at 5km resolution from Digimap at: https://digimap.edina.ac.uk/roam/download/os
 
+<p align="center">
+<img src="Figs/studyarea_slope.png" width="300"  />  
+<img src="Figs/studyarea_elevation.png" width="300" />
+</p>
+<p align="center"> Figure 1. Slope (left) and elevation (right) profiles over the study area <p align="center">
+
+
 ### JoinDepthData_withCovariates.R
 This script takes a shapefile containing the locations at which peat depth measurements have been measured.  
 It also loads in raster data containing slope and elevation values covering the same area.  
