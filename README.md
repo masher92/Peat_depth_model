@@ -6,7 +6,9 @@ Mapping the spatial distribution of peatland depth is vital for quantifying the 
 
 1. [ Motivation. ](#motiv)
 2. [ Installation. ](#install)
-3. [ How to use. ](#workflow)
+3. [ Workflow. ](#workflow)
+  a. [ Geostatistical modelling. ](#workflow)
+  b. [ Synthetic samples. ](#workflow)
 4. [ Example Usage. ](#ex)
 5. [ Next stages. ](#nextup)
 6. [ License. ](#lic)
