@@ -28,6 +28,12 @@ Randomly select from these points X number of points (depending on number of poi
 Uses stratify function (spcosa) to split the study area into (equally?) sized areas of a specified number.
 One sample point is then located within each sub-area. Literature suggests this should be the centroid of each sub-area; however, this does not seem to be what is happening. Not sure why not...
 
+Diss <- "Spatial coverage samples were generated using the spcosa-package in R (Walvoort et al., 2010).
+The package uses the k-means clustering algorithm to split the study region into N equally spaced
+sub-regions, with one sample positioned randomly in each sub-region (Fig 4.3). Values of N were
+chosen to match the sample numbers associated with the grids tested in Section 4.3.1. The algorithm
+was run fty times, with a dierent sub-region delineation generated each time."
+
 #### Spatial coverage sample with short distance subset
 As above
 Randomly select some of the points around which to base short distance clusters
