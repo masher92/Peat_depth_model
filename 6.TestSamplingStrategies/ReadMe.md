@@ -52,3 +52,4 @@ Randomly select from these points X number of points (depending on number of poi
 <p align="center">
 <img src="Figs/synthetic_data_flow2.png" width="500"  />  
 <p align="center"> Figure 1. Slope (left) and elevation (right) profiles over the study area <p align="center">
+  
