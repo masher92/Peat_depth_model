@@ -67,7 +67,7 @@ Uses the existing peat depth sample data to fit the model and then uses this fit
 ###  Exploring the impact of sampling strategy
 The second component of this research evaluates the impact on geostatistical model performance of the method used to collect the peat depth samples used in the model. 
 
-<ins> 5.CVModel_WithSyntheticSamples </ins>  
+<ins> 6.TestSamplingStrategies </ins>  
 Synthetic peat depth samples are constructed with a range of sizes using four configurations:
 * Regular grid
 * Regular grid with short distance subset
