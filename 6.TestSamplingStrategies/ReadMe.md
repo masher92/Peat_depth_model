@@ -7,8 +7,6 @@ Samples containing points in the following formations are created (and in the fo
 * Spatial coverage sample with short distance subset (SPCosa_sr.R)
 
 Examples of each are displayed in Figure 1.
-
-Figure 1 displays examples of each of the four sampling configurations tested:  
 <p align="center">
 <img src="Figs/RegularGrid_100m.png" width="240"  />  
   <img src="Figs/RegularGrid_sr_100m.png" width="240"  />  
