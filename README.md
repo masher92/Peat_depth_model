@@ -14,8 +14,7 @@ Mapping the spatial distribution of peatland depth is vital for quantifying the 
 
 <a name="motiv"></a>
 ## Motivation
-
-
+The overarching aim of this research is to investigate means of improving the accuracy of landscape-scale empirical models of peat depth based on discrete manual depth measurements, through provision of evidence to inform and improve manual depth data collection principles. It aimed to provide advice that would be readily implementable by peat practitioners and those researching in peatlands.
 
 <a name="use"></a>
 ## How to use
