@@ -23,7 +23,7 @@ Focussing on a blanket peatland in the Yorkshire Dales, the work is split into t
 2. Exploring how sampling strategies influence geostatistical model accuracy, through investigating i) the grid resolution required to harness geostatistical model benefits and (ii) whether alternative sample layouts allow benefits to be realised with fewer sample points.
 <a name="install"></a>
 ## Installation
-Running this code requires installation of R.
+Running this code requires installation of R.  
 Packages required include:
 * Spcosa
 * raster
