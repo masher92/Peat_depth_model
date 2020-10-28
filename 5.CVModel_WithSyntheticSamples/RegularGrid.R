@@ -23,7 +23,7 @@ source("Code/Peat_depth_model-master/5.CVModel_WithSyntheticSamples/CreateSynthe
 ##################################################
 grid_spacing = 100
 aoi = 'Humberstone'
-proj_for_cv = 'bng'
+proj_for_cv = 'wgs84'
 
 ##################################################
 # Read in required data
@@ -137,6 +137,12 @@ for (i in 1:50){
   #   extra_row$longitude =  extra_row$longitude + 0.0003
   #   shifted_grid_df <- rbind(shifted_grid_df, extra_row)}
   
+  if (proj_for_cv == 'bng') { 
+    shifted_grid_spdf =  SpatialPointsDataFrame(coords = shifted_grid_df[c(1:2)], data = shifted_grid_df[c(3:9)],proj4string =  CRS("+init=epsg:4326"))
+    shifted_grid_spdf = spTransform(shifted_grid_spdf, CRS("+init=epsg:27700"))
+    shifted_grid_df = as.data.frame(shifted_grid_spdf)  
+  } 
+
   print ('Cross validating')
   results <- cross_validate (shifted_grid_df, c('elevation', 'Slope_5m'))
   
