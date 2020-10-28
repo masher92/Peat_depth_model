@@ -43,15 +43,12 @@ aoi_trimmed <- readOGR(dsn = "Data/Generated/StudyAreaTrimmedToMoorlandLine", la
 ################################################################################
 # Check plotting of sample
 ################################################################################
-aoi_trimmed_wgs84 <- spTransform(aoi_trimmed, CRS("+init=epsg:4326"))
-pd_sample_wgs84 <- spTransform(pd_sample, CRS("+init=epsg:4326"))
-
 # Plot
 leaflet() %>% 
   addProviderTiles(providers$OpenStreetMap) %>%  
   addTiles() %>%
-  addPolygons(data = aoi_trimmed_wgs84, fillOpacity = 0, weight = 3) %>%
-  addCircles(data = pd_sample_wgs84, radius = 5, weight = 1, fillOpacity = 1, opacity=1, color = 'green', fillColor = 'green')  %>% 
+  addPolygons(data = spTransform(aoi_trimmed, CRS("+init=epsg:4326")), fillOpacity = 0, weight = 3) %>%
+  addCircles(data = spTransform(pd_sample, CRS("+init=epsg:4326")), radius = 5, weight = 1, fillOpacity = 1, opacity=1, color = 'green', fillColor = 'green')  %>% 
   addScaleBar(position = c("topright", "bottomright", "bottomleft",
                            "topleft"), options = scaleBarOptions())
 

@@ -56,20 +56,37 @@ Returns
 
 ################################################################################
 # Read in required data
+################################################################################
 peat_depth_samples <- readOGR(dsn = "Data/Generated/CleanedPeatDepthSamples", layer = paste(aoi, "PeatDepthPoints_cleaned", sep = ''))
 dtm <-raster("Data/Input/DTM/Dales_Nidderdale_Moorland_Line_DTM_5m.tif")
 slope <-raster("Data/Input/DTM/Dales_Nidderdale_Moorland_Line_Slope_5m.tif")
 
 ################################################################################
 # Process data
+################################################################################
 # Remove any NA depth values
 sample <- peat_depth_samples[!is.na(peat_depth_samples@data$Depth),]
 
 # Join to covariates
 sample <- join_topographic_data(sample, c(dtm, slope), covar_names)
 
+###### Check plotting of sample
+aoi_trimmed_wgs84 <- spTransform(aoi_trimmed, CRS("+init=epsg:4326"))
+sample_wgs84 <- spTransform(sample, CRS("+init=epsg:4326"))
+
+# Plot
+leaflet() %>% 
+  addProviderTiles(providers$OpenStreetMap) %>%  
+  addTiles() %>%
+  addPolygons(data = aoi_trimmed_wgs84, fillOpacity = 0, weight = 3) %>%
+  addCircles(data = sample_wgs84, radius = 5, weight = 1, fillOpacity = 1, opacity=1, color = 'green', fillColor = 'green')  %>% 
+  addScaleBar(position = c("topright", "bottomright", "bottomleft",
+                           "topleft"), options = scaleBarOptions())
+
+
 ################################################################################
 # Save sample
+################################################################################
 writeOGR(sample, dsn = "Data/Generated/CleanedPeatDepthSamples_withCovariates" , layer = "Humberstone_CleanedPD_withCovariates", driver="ESRI Shapefile")
 
 
