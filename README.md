@@ -49,32 +49,24 @@ The input to both model is a dataframe with each row containing:
 * The peat depth measured at the location
 * The slope and elevation value at that location
 
-Model predictive performance was assessed using 10-fold cross-validation. The dataset was randomly
-split into ten subsets. Iteratively, the model was tted on nine subsets and tested on the remaining
-one, until each subset had been used as testing data. This whole process was repeated ten times, with
-each based on a dierent starting random subset split, to reduce the probability of model artefacts due
-to subset selection
+Predictive performance of both models is assessed using 10-fold cross-validation. The dataset is randomly split into ten subsets. Iteratively, the model is fitted on nine subsets and tested on the remaining one, until each subset had been used as testing data. This whole process is repeated ten times, with each based on a different starting random subset split, to reduce the probability of model artefacts due to subset selection.  
 
+<ins> 1. DefineStudyArea </ins>  
+This directory contains code which defines the boundaries of the study area within which we are attempting to predict peat depth.  
+<ins> 2. CleanDepthSampleData </ins>  
+This directory contains code which cleans peat depth sample data for four study areas in the Yorkshire Dales to ensure they all take the same structure e.g. X, Y coordinates accompanied by a peat depth data column 'Depth'. 
+<ins> 3. JoinDepthDataWithCovariates </ins>  
+This directory contains code which extracts the slope and elevation value at each location with a measured peat depth value.     
+<ins> 4. CrossValidateModel </ins>
+This directory contains code which uses the resulting dataset (locations in the study area with peat depth measurements and slope and elevation values) to cross validate the performance of both a linear and geostatistical model. The results of the cross-validation are used to create a table of results containing the following metrics: bias, root mean squared error, coverage, prediction interval width and correlation coefficient. 
+<ins> 5. PredictUnmeasuredLocations </ins>  
+Uses the existing peat depth sample data to fit the model and then uses this fitted model to make predictions across the whole AOI.  
 
 <a name="workflowb"></a>
 ###  Exploring the impact of sampling strategy
 
-The input to the model is a dataframe containing the following information:
-* Lat and long coordinates 
 
-PeatDepthPointsCleaning
-* Prelimanary cleaning of the peat depth sample data for 4 AOIs in the Yorkshire Dales to ensure they all take the same structure e.g. X, Y coordinates accompanied by a peat depth data column 'Depth'
 
-RunModel:
-* Matches each of the locations where the peat depth has been sampled to slope and elevation values from the DEM.
-* Cleans the sample data - removes any points with NA for peat depth.
-* Cleans the sample data - removes any duplicated points or points which are overly close together
-* Adds log and sqrt transformations of the depth data
-* Fits a linear model and spatial model (both with slope and elevation as covariates) and uses 10-fold cross validation
-to analyse the model effectiveness and to compare the predicted values with the observed values
-
-PredictUnmeasuredLocations:
-* Uses the existing peat depth sample data to fit the model and then uses this fitted model to make predictions across the whole AOI.
 
 <a name="nextup"></a>
 ## Next stages
