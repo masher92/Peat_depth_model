@@ -7,7 +7,7 @@ Mapping the spatial distribution of peatland depth is vital for quantifying the 
 1. [ Motivation. ](#motiv)
 2. [ Installation. ](#install)
 3. [ Workflow. ](#workflow)  
-  a. [ Geostatistical modelling. ](#workflowa)  
+  a. [ . ](#workflowa)  
   b. [ Investigating the impact of sample configuration on geostatistical model performance. ](#workflowb)  
 4. [ Example Usage. ](#ex)
 5. [ Next stages. ](#nextup)
@@ -18,9 +18,9 @@ Mapping the spatial distribution of peatland depth is vital for quantifying the 
 ## Motivation
 The overarching aim of this research is to investigate means of improving the accuracy of landscape-scale empirical models of peat depth based on discrete manual depth measurements, through provision of evidence to inform and improve manual depth data collection principles. It aims to provide advice that would be readily implementable by peat practitioners and those researching in peatlands.
 
-The study focuses on a blanket peatland in the Yorkshire Dales and pursues this aim through the following objectives:
-* To corroborate the findings of Young et al (2018) in a blanket peatland in Dorset, that a geostatistical model of peat depth, with slope and elevation as covariates, improves on the performance of a linear model based on these topographic parameters alone.
-* To investigate the minimum distance required between sample points in a regular grid to ensure that spatial autocorrelation, a prerequisite for increased geostatistical
+Focussing on a blanket peatland in the Yorkshire Dales, the work is split into two main sections:
+  a. To corroborate the findings of Young et al (2018) in a blanket peatland in Dorset, that a geostatistical model of peat depth, with slope and elevation as covariates, improves on the performance of a linear model based on these topographic parameters alone.
+  b. To investigate the minimum distance required between sample points in a regular grid to ensure that spatial autocorrelation, a prerequisite for increased geostatistical
 model accuracy, is observed.
 * To explore alternative approaches to manual sampling in blanket peatlands which facilitate accurate geostatistical modelling of depth whilst minimising sample number
 requirements.
