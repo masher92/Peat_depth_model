@@ -9,6 +9,7 @@ Mapping the spatial distribution of peatland depth is vital for quantifying the 
 3. [ How to use. ](#use)
 4. [ Example Usage. ](#ex)
 5. [ License. ](#lic)
+6. [ References. ](#ref)
 
 <a name="motiv"></a>
 ## Motivation
@@ -68,3 +69,8 @@ Randomly select from these points X number of points (depending on number of poi
 3. Check for sample points which have no other sample points close to them, and then resample these points by randomly selecting a new sample point from the study area which is within the same slope/elevation category. 
 
 1. Convert slope and elevation rasters into dataframes containing slope and elevation of each location (lat, long coordinates)
+
+<a name="ref"></a>
+## References
+Young, D.M., Parry, L.E., Lee, D. and Ray, S., 2018. Spatial models with covariates improve estimates of peat depth in blanket peatlands. Plos one, 13(9), p.e0202691.
+
