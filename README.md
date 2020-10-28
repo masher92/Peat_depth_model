@@ -1,9 +1,14 @@
-# Peat Depth Model
+# Geostatistical modelling of peat depth
 
-The purpose of this model is to interpolate between... TBF.
+Mapping the spatial distribution of peatland depth is vital for quantifying the size of the peatland carbon pool, and assessing the risk presented by its release into the atmosphere under global peatland degradation. Peat depth can be predicted at the landscape scale through interpolation between manual depth samples. Whilst linear interpolation using topographic parameters has some predictive skill, geostatistical models with covariates have been shown to increase prediction accuracy by incorporating both the autogenic and allogenic factors that influence peat accumulation (Young et al, 2018). Realisation of geostatistical model benefits is contingent on samples being spatially autocorrelated. Focusing on a blanket peatland in Yorkshire, this research further evidences the benefits of this approach, before investigating the influence of sample design on geostatistical model performance.
 
-The model takes as inputs:
-* Shapefile containing x, y coordinates of locations and accompanying peat depth measurements.
+
+
+The input to the model is a dataframe containing the following information:
+* Lat and long coordinates 
+
+model takes as an input a dataframe containing 
+* Dataframe containing x, y coordinates of locations and accompanying peat depth measurements.
 * Raster containing slope values over an area of interest.
 * Raster containing elevation values over an area of interest.
 
