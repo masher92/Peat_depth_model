@@ -21,8 +21,13 @@ source("Code/Peat_depth_model-master/5.CVModel_WithSyntheticSamples/CreateSynthe
 ##################################################
 # Parameters defining number samples and how they will be used
 ##################################################
+# Area in which samples will be constructed
+aoi = 'Humberstone'
+
 # Size of grid spacing
 grid_spacing = 100
+# Projection to use in the CV
+proj_for_cv = 'wgs84'
 
 # Number of samples to be equivalent to the number of samples in a regular grid
 if (grid_spacing == 100) { 
@@ -119,11 +124,17 @@ for (i in (1:50)){
   #########################################################################
   # Cross-validate model with this iteration of spatial coverge dataset
   #########################################################################
+  if (proj_for_cv == 'bng') { 
+    spcosa_spdf =  SpatialPointsDataFrame(coords = spcosa_df[c(1:2)], data = spcosa_df[c(3:9)],proj4string =  CRS("+init=epsg:4326"))
+    spcosa_spdf = spTransform(spcosa_spdf, CRS("+init=epsg:27700"))
+    spcosa_df = as.data.frame(spcosa_spdf)  
+  } 
+  
   print ('Cross validating')
   results <- cross_validate (spcosa_df, c('elevation', 'Slope_5m'))
   
   ################################################################################
-  # Analyse results
+  #Analyse results
   ################################################################################
   options(scipen=999) # stops use of scientific notations
   

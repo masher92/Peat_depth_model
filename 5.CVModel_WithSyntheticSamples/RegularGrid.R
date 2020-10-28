@@ -21,8 +21,13 @@ source("Code/Peat_depth_model-master/5.CVModel_WithSyntheticSamples/CreateSynthe
 ##################################################
 # Parameters defining number samples and how they will be used
 ##################################################
-grid_spacing = 100
+# Area in which samples will be constructed
 aoi = 'Humberstone'
+
+# Spacing of grid 
+grid_spacing = 100
+
+# Projection to use in the CV
 proj_for_cv = 'wgs84'
 
 ##################################################

@@ -22,6 +22,9 @@ source("Code/Peat_depth_model-master/5.CVModel_WithSyntheticSamples/CreateSynthe
 ##################################################
 # Parameters defining number samples and how they will be used
 ##################################################
+# Area in which samples will be constructed
+aoi = 'Humberstone'
+
 # Size of grid spacing
 grid_spacing = 100
 
@@ -31,6 +34,9 @@ if (grid_spacing == 100) {
 } else if (grid_spacing == 150) {
   n_samples = 500
 } 
+
+# Projection to use in the CV
+proj_for_cv = 'wgs84'
 
 # Parameters related to short range cluster
 n_per_cluster <- 3
@@ -80,7 +86,7 @@ for (i in 1:50){
                                equalArea = FALSE, verbose = getOption("verbose"))
   # Select one sample point in each of the strata
   mySamplingPattern <- spsample(myStratification, n = 1)
-
+  
   # Convert the output of spcosa to dataframe/spatial points dataframe
   spcosa_df <- as.data.frame(mySamplingPattern@sample)
   spcosa_spdf <- SpatialPointsDataFrame(coords = spcosa_df[c(1:2)], data = spcosa_df[c(1,2)],proj4string =  CRS("+init=epsg:4326"))
@@ -135,7 +141,7 @@ for (i in 1:50){
     # Add to dataframe storing all the extra samples
     short_range_subset <- rbind(short_range_subset, pts_to_add)
   } 
-
+  
   # Remove the same number of points from grid as were added in short distance subset
   # This is so the number of points in the whole sample is comparable to the straight
   # regular grid sample (;however, doing this doesn't necessarily make sense)
