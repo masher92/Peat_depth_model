@@ -23,6 +23,7 @@ source("Code/Peat_depth_model-master/5.CVModel_WithSyntheticSamples/CreateSynthe
 ##################################################
 grid_spacing = 100
 aoi = 'Humberstone'
+proj_for_cv = 'bng'
 
 ##################################################
 # Read in required data
