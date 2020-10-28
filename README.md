@@ -2,7 +2,21 @@
 
 Mapping the spatial distribution of peatland depth is vital for quantifying the size of the peatland carbon pool, and assessing the risk presented by its release into the atmosphere under global peatland degradation. Peat depth can be predicted at the landscape scale through interpolation between manual depth samples. Whilst linear interpolation using topographic parameters has some predictive skill, geostatistical models with covariates have been shown to increase prediction accuracy by incorporating both the autogenic and allogenic factors that influence peat accumulation (Young et al, 2018). Realisation of geostatistical model benefits is contingent on samples being spatially autocorrelated. Focusing on a blanket peatland in Yorkshire, this research further evidences the benefits of this approach, before investigating the influence of sample design on geostatistical model performance.
 
+## Table of contents
 
+1. [ Motivation. ](#motiv)
+2. [ Installation. ](#install)
+3. [ How to use. ](#use)
+4. [ Example Usage. ](#ex)
+5. [ License. ](#lic)
+
+<a name="motiv"></a>
+## Motivation
+
+
+
+<a name="use"></a>
+## How to use
 
 The input to the model is a dataframe containing the following information:
 * Lat and long coordinates 
