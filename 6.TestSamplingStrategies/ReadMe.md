@@ -1,17 +1,27 @@
-## Assessing impact of depth sampling strategy on model accuracy with cross-validation
-A major component of this research was evaluating the impact on the geostatistical model performance of the method used to collect the peat depth samples used in the model.
-In particular, we were interested in:
+## Assessing impact of depth sampling strategy on model accuracy 
+This research evaluates the impact on the geostatistical model performance of the method used to collect the peat depth samples used in the model.
+In particular, focussing on:
 1. The density of samples in a grid formation required to realise geostatistical model benefits; and
 2. Whether alternative sampling methods could improve the accuracy of geostatistical model predictions possible with a certain number of sample points.
 
-This research investigated this by creating samples containing sample points whose locations are in a regular grid, as well as in several other formations created by using the following sampling strategies:
+This was investigated by creating samples containing sample points with locations in the following formations:
 
 * Regular grid
 * Regular grid with short distance subset
 * Spatial Coverage sample
 * Spatial coverage sample with short distance subset
 
-For each of these, samples with various numbers of sample points were defined. Collecting manual depth samples using all of these strategies, and various sample point densities, would have required an unfeasible amount of time and labour, and so instead, a method was formulated for generating synthetic depths programmatically. These synthetic sample datasets were then used in geostatistical depth modelling and the accuracy of the predictions was assessed in each case, to make inferences about the impact of the sampling strategy on model performance.
+For each of these, samples of various sizes (i.e. various numbers of sample points) were defined.  
+Collecting manual depth samples using all of these strategies, and various sample sizes, would have required an unfeasible amount of time and labour, and so instead, a method was formulated for generating synthetic depths programmatically. 
+Both linear and geostatistical model performance is then assessed through cross-validation using these synthetic peat depth datasets.
+
+The purpose of this part of the work is to assess whether model accuracy is influenced by the sampling strategy used. However, it was considered that model accuracy could be influenced by the exact locations where the synthetic sample points happened to fall (e.g. if, by chance, a sample included lots of points in deep peat then performance of the model might be improved). In order to account for this, 50 variations of each sample configuration and sample size were generated and used in model cross-validation.
+
+"CreateSyntheticSample_functions.R".
+
+In each of the other R scripts, 
+
+
 
 ## Using R to define sample locations
 Slope and elevation files used to define poitns?
