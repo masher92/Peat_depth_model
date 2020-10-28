@@ -21,7 +21,7 @@ Mapping the spatial distribution of peatland depth is vital for quantifying the 
 Geostatistical model accuracy relies on samples being both spatially dependent and evenly distributed. A gridded layout is often favoured for peat depth sampling; however, evidence from Digital Soil Mapping (DSM) indicates that geostatistical model accuracy can be improved with alternative sampling approaches.
 
 * [Section 3b.](#workflowa) of this work explores how sampling strategies influence geostatistical model accuracy, through investigating i) the grid resolution required to harness geostatistical model benefits and (ii) whether alternative sample layouts allow benefits to be realised with fewer sample points. Alternative sampling strategies considered include:
-  * A spatial coverage sample which avoids the rigidity of a grid design whilst still dispersing samples well ([Walvoort et al., 2010](#walvoort2010))
+  * A spatial coverage sample which avoids the rigidity of a grid design whilst still dispersing samples well ([Walvoort et al., 2010](#walvoort2010)).
   * The addition of clusters of points at shorter distances from one another to both spatial coverage samples and samples collected on a regular grid. DSM research by [Wadoux et al (2019)](#wadoux2019) indicates the importance of including some tightly spaced observations to allow the model to characterise spatial dependency over short distances.
 
 
@@ -40,7 +40,7 @@ Packages required include:
 ## Workflow
 <a name="workflowa"></a>
 ###  Comparing geostatistical and linear model performance
-The accuracy of two different statistical models of peat depth was compared, based on those employed by Young et al. (2018). 
+The accuracy of two different statistical models of peat depth was compared, based on those employed by Young et al. (2018):
 1. A linear model using slope and elevation as covariates 
 2. A geostatistical model configured with slope and elevation covariates using universal kriging
 
@@ -65,7 +65,10 @@ Uses the existing peat depth sample data to fit the model and then uses this fit
 
 <a name="workflowb"></a>
 ###  Exploring the impact of sampling strategy
-The second component of this research evaluates the impact on geostatistical model performance of the method used to collect the peat depth samples used in the model. Synthetic peat depth samples are constructed with a range of sizes using four configurations:
+The second component of this research evaluates the impact on geostatistical model performance of the method used to collect the peat depth samples used in the model. 
+
+<ins> 5.CVModel_WithSyntheticSamples </ins>  
+Synthetic peat depth samples are constructed with a range of sizes using four configurations:
 * Regular grid
 * Regular grid with short distance subset
 * Spatial Coverage sample
