@@ -11,7 +11,7 @@ This sample has been joined with slope and elevation data, and these variables a
 <img src="Figs/PeatDepthSample_locations.png" width="700"  title="Full study area outline" />
 <p align="center">Figure 1. Location of peat depth measurements within study area <p align="center">
 
-The peat depth sample being used here contains some duplicated points and some very geographically close points. The script contains an option to remove these points. 
+The peat depth sample being used here contains some duplicated points and some very geographically close points. The script contains an option to remove these points.  
 The script also contains an option to carry out the cross-validation using the sample data in either British National Grid (BNG) or WGS84 projection. Currently, if the model is run in BNG the geostatistical model doesn't work properly and gives the same results to the linear model. Still not sure why this is.
 
 #### Assessing model accuracy
