@@ -1,26 +1,18 @@
 ## Assessing impact of depth sampling strategy on model accuracy 
 Samples containing points in the following formations are created:
 
-* Regular grid
-* Regular grid with short distance subset
-* Spatial Coverage sample
-* Spatial coverage sample with short distance subset
+* Regular grid (RegularGrid.R)
+* Regular grid with short distance subset (RegularGrid_Sr.R)
+* Spatial Coverage sample (SPCosa.R)
+* Spatial coverage sample with short distance subset (SPCosa_sr.R)
 
 For each of these, samples of various sizes (i.e. various numbers of sample points) are defined.  
-Collecting manual depth samples using all of these strategies, and various sample sizes, would require an unfeasible amount of time and labour, and so instead, synthetic depths are generated programmatically. 
+Collecting manual depth samples using all of these strategies, and various sample sizes, would require an unfeasible amount of time and labour, and so instead, synthetic depths are generated programmatically (with function defined in CreateSyntheticSample_functions.R). 
 Both linear and geostatistical model performance is then assessed through cross-validation using these synthetic peat depth datasets.
 
 The purpose of this part of the work is to assess whether model accuracy is influenced by the sampling strategy used. However, model accuracy could be influenced by the exact locations where the synthetic sample points happen to fall (e.g. if, by chance, a sample included lots of points in deep peat then performance of the model might be improved). In order to account for this, 50 variations of each sample configuration and sample size are generated and used in model cross-validation.
 
-"CreateSyntheticSample_functions.R".
-
-In each of the other R scripts, 
-
-
-
-## Using R to define sample locations
-Slope and elevation files used to define poitns?
-
+### Using R to define sample locations
 #### Regular grid
 Sample locations were defined on a regular grid using the "makegrid" function in the "gstat" package. This function takes as an input the number of points to include in the grid, this was adjusted until grids of the desired spacing were created. Grids were created over the bounding box of the study area and subsequently trimmed to the boundary of the study area.
 
@@ -45,5 +37,11 @@ Randomly select some of the points around which to base short distance clusters
 Create a buffer around these points of Xm, and then find the points from the geodataframe of all points within the AOI that fall within this buffer
 Randomly select from these points X number of points (depending on number of points to have in each cluster)
 
-## Using R to assign depth values to sample locations
-Collecting manual depth samples for testing this would have required an unfeasible amount of time and labour, and so instead, a method was formulated for generating synthetic depths programmatically. Samples of four different
+<p align="center">
+<img src="Figs/200M_SR4.png" width="300"  />  
+<p align="center"> Figure 1. Slope (left) and elevation (right) profiles over the study area <p align="center">
+
+##### Assigning synthetic depth values
+<p align="center">
+<img src="Figs/synthetic_data_flow2.png" width="300"  />  
+<p align="center"> Figure 1. Slope (left) and elevation (right) profiles over the study area <p align="center">
