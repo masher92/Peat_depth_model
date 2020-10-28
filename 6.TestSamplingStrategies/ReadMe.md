@@ -6,6 +6,14 @@ Samples containing points in the following formations are created:
 * Spatial Coverage sample (SPCosa.R)
 * Spatial coverage sample with short distance subset (SPCosa_sr.R)
 
+<p align="center">
+<img src="Figs/RegularGrid_100m.png" width="200"  />  
+  <img src="Figs/RegularGrid_sr_100m.png" width="200"  />  
+   <img src="Figs/SPCosa_sr_100m.png" width="200"  />  
+     <img src="Figs/SPCosa_100m.png" width="200"  />  
+<p align="center"> Figure 1. Slope (left) and elevation (right) profiles over the study area <p align="center">
+
+
 For each of these, samples of various sizes (i.e. various numbers of sample points) are defined.  
 Collecting manual depth samples using all of these strategies, and various sample sizes, would require an unfeasible amount of time and labour, and so instead, synthetic depths are generated programmatically (using function defined in CreateSyntheticSample_functions.R).  
 Both linear and geostatistical model performance is then assessed through cross-validation using these synthetic peat depth datasets.
@@ -38,10 +46,10 @@ Create a buffer around these points of Xm, and then find the points from the geo
 Randomly select from these points X number of points (depending on number of points to have in each cluster)
 
 <p align="center">
-<img src="Figs/200M_SR4.png" width="300"  />  
+<img src="Figs/200M_SR4.png" width="500"  />  
 <p align="center"> Figure 1. Slope (left) and elevation (right) profiles over the study area <p align="center">
 
 ##### Assigning synthetic depth values
 <p align="center">
-<img src="Figs/synthetic_data_flow2.png" width="300"  />  
+<img src="Figs/synthetic_data_flow2.png" width="500"  />  
 <p align="center"> Figure 1. Slope (left) and elevation (right) profiles over the study area <p align="center">
