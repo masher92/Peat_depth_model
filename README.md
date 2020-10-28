@@ -73,5 +73,8 @@ PredictUnmeasuredLocations:
 
 <a name="ref"></a>
 ## References
+Wadoux, A. M.-C., Marchant, B. P., & Lark, R. M. (2019). Efficient sampling for geostatistical surveys. European Journal of
+Soil Science, 1–15.
+Walvoort, D. J., Brus, D., & De Gruijter, J. (2010). An R package for spatial coverage sampling
 Young, D.M., Parry, L.E., Lee, D. and Ray, S., 2018. Spatial models with covariates improve estimates of peat depth in blanket peatlands. Plos one, 13(9), p.e0202691.
 
