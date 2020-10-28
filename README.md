@@ -71,11 +71,10 @@ Uses the existing peat depth sample data to fit the model and then uses this fit
 
 <a name="nextup"></a>
 ## Next stages
-1. Find distribution of slope and elevation values across the AOI (convert raster into a dataframe of lat, long coordinates with associated slope/elevation values. Use this to create slope/elevation categorical categories).
-2. Use this to take a sample with the same proportion of each slope/elevation category as the study area as a whole (using stratified sampling)
-3. Check for sample points which have no other sample points close to them, and then resample these points by randomly selecting a new sample point from the study area which is within the same slope/elevation category. 
-
-1. Convert slope and elevation rasters into dataframes containing slope and elevation of each location (lat, long coordinates)
+Additional stages which could be explored and would contribute further to the outputs of this research:  
+1. This researches focusses solely on the sample’s coverage of geographic space. Further improvements of geostatistical model performance may be possible through additional optimisation of sample coverage of the covariate feature space. Options for achieving this:
+  * Use stratified sampling to take samples with the same proportion of slope/elevation categories as the study area as a whole. 
+  * When choosing the short range subset this could be biased towards choosing extra sample points in areas with certain topographic characteristics
 
 <a name="ref"></a>
 ## References
