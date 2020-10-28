@@ -13,7 +13,7 @@ Examples of each are displayed in Figure 1.
   <img src="Figs/RegularGrid_sr_100m.png" width="240"  />  
    <img src="Figs/SPCosa_sr_100m.png" width="240"  />  
      <img src="Figs/SPCosa_100m.png" width="240"  />  
-<p align="center"> Figure 1. Regular Grid (1), Regular grid with short distance subset (2), spatial Coverage sample (3) and spatial coverage sample with short distance subset (4) <p align="center">
+<p align="center"> Figure 1. Regular Grid (1), Regular grid with short distance subset (2), spatial coverage sample (3) and spatial coverage sample with short distance subset (4) <p align="center">
 
 
 For each of these, samples of various sizes (i.e. various numbers of sample points) are defined.  
