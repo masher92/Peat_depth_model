@@ -39,19 +39,28 @@ Packages required include:
 <a name="workflow"></a>
 ## Workflow
 <a name="workflowa"></a>
-###  Determining whether a geostatistical model of peat depth improves on the performance of a linear model 
+###  Comparing geostatistical and linear model performance
+The accuracy of two different statistical models of peat depth was compared, based on those employed by Young et al. (2018). 
+1. A linear model using slope and elevation as covariates 
+2. A geostatistical model configured with slope and elevation covariates using universal kriging
+
+The input to both model is a dataframe with each row containing:
+* The latitude and longitude of the location
+* The peat depth measured at the location
+* The slope and elevation value at that location
+
+Model predictive performance was assessed using 10-fold cross-validation. The dataset was randomly
+split into ten subsets. Iteratively, the model was tted on nine subsets and tested on the remaining
+one, until each subset had been used as testing data. This whole process was repeated ten times, with
+each based on a dierent starting random subset split, to reduce the probability of model artefacts due
+to subset selection
 
 
 <a name="workflowb"></a>
-###  Exploring how sampling strategies influence geostatistical model accuracy.
+###  Exploring the impact of sampling strategy
 
 The input to the model is a dataframe containing the following information:
 * Lat and long coordinates 
-
-model takes as an input a dataframe containing 
-* Dataframe containing x, y coordinates of locations and accompanying peat depth measurements.
-* Raster containing slope values over an area of interest.
-* Raster containing elevation values over an area of interest.
 
 PeatDepthPointsCleaning
 * Prelimanary cleaning of the peat depth sample data for 4 AOIs in the Yorkshire Dales to ensure they all take the same structure e.g. X, Y coordinates accompanied by a peat depth data column 'Depth'
