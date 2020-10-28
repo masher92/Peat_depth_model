@@ -14,12 +14,12 @@
 
 <a name="motiv"></a>
 ## Motivation
-Mapping the spatial distribution of peatland depth is vital for quantifying the size of the peatland carbon pool, and assessing the risk presented by its release into the atmosphere under global peatland degradation. Peat depth can be predicted at the landscape scale through interpolation between manual depth samples. Whilst linear interpolation using topographic parameters has some predictive skill, geostatistical models with covariates have been shown to increase prediction accuracy by incorporating both the autogenic and allogenic factors that influence peat accumulation (Young et al, 2018). 
+Mapping the spatial distribution of peatland depth is vital for quantifying the size of the peatland carbon pool, and assessing the risk presented by its release into the atmosphere under global peatland degradation. Peat depth can be predicted at the landscape scale through interpolation between manual depth samples. Whilst linear interpolation using topographic parameters has some predictive skill, geostatistical models with covariates have been shown to increase prediction accuracy by incorporating both the autogenic and allogenic factors that influence peat accumulation [Young et al (2018)](#young2018). 
 
-Geostatistical model accuracy relies on samples being both spatially dependent and evenly distributed. A gridded layout is often favoured for peat depth sampling; however, evidence from Digital Soil Mapping (DSM) indicates that geostatistical model accuracy can be improved with a spatial coverage sample which avoids the rigidity of a grid design whilst still dispersing samples well (Walvoort et al., 2010). DSM research by Wadoux et al. (2019) also indicates the importance of including some tightly spaced observations to allow the model to characterise spatial dependency over short distances.
+Geostatistical model accuracy relies on samples being both spatially dependent and evenly distributed. A gridded layout is often favoured for peat depth sampling; however, evidence from Digital Soil Mapping (DSM) indicates that geostatistical model accuracy can be improved with a spatial coverage sample which avoids the rigidity of a grid design whilst still dispersing samples well ([Walvoort et al., 2010](#walvoort2010). DSM research by Wadoux et al. (2019) also indicates the importance of including some tightly spaced observations to allow the model to characterise spatial dependency over short distances.
 
 Focussing on a blanket peatland in the Yorkshire Dales, the work is split into two main sections:  
-1. Determining whether a geostatistical model of peat depth with slope and elevation as covariates, improves on the performance of a linear model based on these topographic parameters alone. This seeks to corroborate the findings of [ Young et al (2018) ](#young2018) in a blanket peatland in Dorset.  
+1. Determining whether a geostatistical model of peat depth with slope and elevation as covariates, improves on the performance of a linear model based on these topographic parameters alone. This seeks to corroborate the findings of [Young et al (2018)](#young2018) in a blanket peatland in Dorset.  
 2. Exploring how sampling strategies influence geostatistical model accuracy, through investigating i) the grid resolution required to harness geostatistical model benefits and (ii) whether alternative sample layouts allow benefits to be realised with fewer sample points.
 <a name="install"></a>
 ## Installation
@@ -75,6 +75,7 @@ PredictUnmeasuredLocations:
 ## References
 Wadoux, A. M.-C., Marchant, B. P., & Lark, R. M. (2019). Efficient sampling for geostatistical surveys. European Journal of
 Soil Science, 1–15.  
+<a name="walvoort2010"></a>
 Walvoort, D. J., Brus, D., & De Gruijter, J. (2010). An R package for spatial coverage sampling  
 <a name="young2018"></a>
 Young, D.M., Parry, L.E., Lee, D. and Ray, S., 2018. Spatial models with covariates improve estimates of peat depth in blanket peatlands. Plos one, 13(9), p.e0202691.
