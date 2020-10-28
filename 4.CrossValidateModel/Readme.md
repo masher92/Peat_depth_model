@@ -4,6 +4,7 @@ The "RunCrossValidation.R" script assesses the performance of both a linear and 
 #### Model training data
 
 The models are fitted using a sample of points with peat depth measurements.  The locations of these samples are shown in Figure 1.  
+These samples are primarily collected on a regularly spaced grid, however, there are some gaps in the grid and some sample points that are more clustered together.  
 This sample has been joined with slope and elevation data, and these variables are used as the predictor variables. The square root of depth is the response variable.   
 
 <p align="center">
