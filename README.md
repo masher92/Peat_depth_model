@@ -6,7 +6,7 @@ Mapping the spatial distribution of peatland depth is vital for quantifying the 
 
 1. [ Motivation. ](#motiv)
 2. [ Installation. ](#install)
-3. [ How to use. ](#use)
+3. [ How to use. ](#workflow)
 4. [ Example Usage. ](#ex)
 5. [ Next stages. ](#nextup)
 6. [ License. ](#lic)
@@ -34,8 +34,8 @@ Packages required include:
 * rgeos
 * geoR
 
-<a name="use"></a>
-## How to use
+<a name="workflow"></a>
+## Workflow
 
 The input to the model is a dataframe containing the following information:
 * Lat and long coordinates 
