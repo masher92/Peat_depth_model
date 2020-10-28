@@ -7,7 +7,7 @@ Samples containing points in the following formations are created:
 * Spatial coverage sample with short distance subset (SPCosa_sr.R)
 
 For each of these, samples of various sizes (i.e. various numbers of sample points) are defined.  
-Collecting manual depth samples using all of these strategies, and various sample sizes, would require an unfeasible amount of time and labour, and so instead, synthetic depths are generated programmatically (with function defined in CreateSyntheticSample_functions.R). 
+Collecting manual depth samples using all of these strategies, and various sample sizes, would require an unfeasible amount of time and labour, and so instead, synthetic depths are generated programmatically (using function defined in CreateSyntheticSample_functions.R).  
 Both linear and geostatistical model performance is then assessed through cross-validation using these synthetic peat depth datasets.
 
 The purpose of this part of the work is to assess whether model accuracy is influenced by the sampling strategy used. However, model accuracy could be influenced by the exact locations where the synthetic sample points happen to fall (e.g. if, by chance, a sample included lots of points in deep peat then performance of the model might be improved). In order to account for this, 50 variations of each sample configuration and sample size are generated and used in model cross-validation.
