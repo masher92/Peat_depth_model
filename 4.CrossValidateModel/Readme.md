@@ -27,7 +27,13 @@ These results tables are saved in csv files.
 Predicted values vs. observed values are also plotted.  
 For each point where depth was measured, this depth is the observed value and the predicted value is the mean of the values predicted across the cross-validation runs.
 
+### Results
+<p align="center">
+<img src="Figs/Performance_metrics.PNG" width="400"  title="Full study area outline" />
+<p align="center">Figure 2. Performance metrics derived from 10-fold cross-validation of both linear and geostatistical
+model performance. <p align="center">
+
 <p align="center">
 <img src="Figs/LM_CV.PNG" width="400"  title="Full study area outline" />
 <img src="Figs/SM_CV.PNG" width="400"  title="Full study area outline" />
-<p align="center">Figure 2. Predicted vs observed depth values, for linear model (left) and spatial model (right) <p align="center">
+<p align="center">Figure 3. Predicted vs observed depth values, for linear model (left) and spatial model (right) <p align="center">
