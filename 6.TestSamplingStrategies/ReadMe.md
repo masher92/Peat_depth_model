@@ -36,12 +36,15 @@ Regular grids and spatial coverage samples are defined with the methods outlined
 <img src="Figs/200M_SR4.png" width="500"  />  
 <p align="center"> Figure 1. Process for addition of short-distance subset. <p align="center">
 
-##### Assigning synthetic depth values
+NB: In this method, the 50 random variations of the samples with short distance subset only vary the placement of the short distance subset points, rather than the whole sample. It would perhaps be more fair to vary both the placement of the main sample AND the short distance subset.
+
+### Using R to assign synthetic depth values sample locations
+A function for assigning defined sample locations a synthetic depth value is defined in "CreatingSyntheticSamples_functions.R". The synthetic sample locations inherit the depth value from the sample point in the dataset of measured peat depth values which is closet to it across both geographic and feature space, according to the process depicted in Figure 2. The compound slope/elevation category had 144 possible combinations and was created by combining categorical slope and elevation variables, created with intervals of 2m and 25m respectively.
+
 <p align="center">
 <img src="Figs/synthetic_data_flow2.PNG" width="500"  />  
-<p align="center"> Figure 1. Slope (left) and elevation (right) profiles over the study area <p align="center">
-  
-  
+<p align="center"> Figure 2. Process for generating synthetic depth data <p align="center">
+    
 ### References
 <a name="haskard2007"></a>
 Haskard, K. A. (2007). An anisotropic Matern spatial covariance model: REML estimation and properties. PhD thesis, University of Adelaide.v
