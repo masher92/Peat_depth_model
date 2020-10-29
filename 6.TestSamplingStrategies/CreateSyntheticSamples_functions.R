@@ -175,6 +175,22 @@ Returns
 
 
 create_regular_grid <- function (grid_spacing) {
+"
+Description
+----------
+    Creates a spatial dataframe of points laid out in a regular grid with a spacing between the adjacent grid points of
+      grid_spacing metres.
+Parameters
+----------
+    grid_spacing: Float
+        A number defining (in m) the distance between each point in the grid
+Returns
+-------
+    grid: Spatial points 
+      Containing points laid out in a regular grid with a spacing between the adjacent grid points of
+      grid_spacing metres.
+        
+"
   # Coordinates of a larger square area around the AOI
   coords = matrix(c(-1.896798, 54.061784,
                     -1.779337, 54.061784,
@@ -196,6 +212,25 @@ create_regular_grid <- function (grid_spacing) {
 }
 
 shift_grid <- function(grid, grid_spacing, n_shifts){
+  "
+Description
+----------
+    For
+Parameters
+----------
+    grid: Spatial points 
+      Containing points laid out in a regular grid with a spacing between the adjacent grid points of
+      grid_spacing metres.
+    grid_spacing: Float
+        A number defining (in m) the distance between each point in the grid
+    n_shifts: integer
+        The number of times to shift the grid, i.e. to create a slight permutation of it
+Returns
+-------
+    grid_shifts: Dataframe
+      Containing two columns with amounts in metres to shift x and y coordinates by, and n_shifts rows
+        
+"
   # Define the range of coordinates possible
   long_range <- seq(0,grid_spacing, by =5)
   lat_range <-  seq(0,grid_spacing, by =5)
