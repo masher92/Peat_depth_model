@@ -5,8 +5,11 @@
 # Setting the Depth column as numeric
 # Keeping just the Depth column
 
+# Source config file containing working directory
+source("Code/Peat_depth_model-master/config.R")
+
 # Set the directory containing the code. 
-setwd("C:/Users/gy17m2a/OneDrive - University of Leeds/Msc/Dissertation/DataAnalysis")
+setwd(working_directory)
 
 #############################################################################################
 # 1. Humberstone
