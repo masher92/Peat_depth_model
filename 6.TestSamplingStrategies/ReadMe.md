@@ -33,16 +33,16 @@ NB: Literature suggests this should be the centroid of each sub-area; however, t
 Regular grids and spatial coverage samples are defined with the methods outlined above, and  subsequently the method outlined in Figure 1, adapted from [Haskard (2007)](#haskard2007), is used to supplement them with a short-range subset. A small subset of the original points is selected randomly, and then these are used to base short distance clusters around. Here, 10% of the total sample allowance is used in the short-distance subset, as recommended by [Lark and Marchant (2018)](#larkandmarchant2018) . This proportion was deemed reasonable to avoid the risk of short-range samples falling in unusual conditions. Concurrently, 10% of the original sample points are removed to ensure a consistent sample size for comparison between methods. For each point in the short distance subset, a buffer of 30m is created around the point. The dataframe of all points within the area of interest at 5m intervals (created from the slope and elevation files) is then searched to identify all points within the buffer. For each cluster, 3 of these points are then randomly selected and added to the spatial points dataframe. 
 
 <p align="center">
-<img src="Figs/200M_SR4.png" width="500"  />  
+<img src="Figs/200M_SR4.png" width="700"  />  
 <p align="center"> Figure 1. Process for addition of short-distance subset. <p align="center">
 
 NB: In this method, the 50 random variations of the samples with short distance subset only vary the placement of the short distance subset points, rather than the whole sample. It would perhaps be more fair to vary both the placement of the main sample AND the short distance subset.
 
-### Using R to assign synthetic depth values sample locations
+### Using R to assign synthetic depth values to sample locations
 A function for assigning defined sample locations a synthetic depth value is defined in "CreatingSyntheticSamples_functions.R". The synthetic sample locations inherit the depth value from the sample point in the dataset of measured peat depth values which is closet to it across both geographic and feature space, according to the process depicted in Figure 2. The compound slope/elevation category had 144 possible combinations and was created by combining categorical slope and elevation variables, created with intervals of 2m and 25m respectively.
 
 <p align="center">
-<img src="Figs/synthetic_data_flow2.PNG" width="500"  />  
+<img src="Figs/synthetic_data_flow2.PNG" width="700"  />  
 <p align="center"> Figure 2. Process for generating synthetic depth data <p align="center">
     
 ### References
