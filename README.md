@@ -7,9 +7,8 @@
 3. [ Workflow. ](#workflow)  
   a. [ Comparing geostatistical and linear model performance. ](#workflowa)  
   b. [ Exploring the impact of sampling strategy ](#workflowb)  
-4. [ Example Usage. ](#ex)
-5. [ Next stages. ](#nextup)
-6. [ References. ](#ref)
+4. [ Next stages. ](#nextup)
+5. [ References. ](#ref)
 
 <a name="motiv"></a>
 ## Motivation
