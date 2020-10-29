@@ -27,6 +27,8 @@ These results tables are saved in csv files.
 Predicted values vs. observed values are also plotted.  
 For each point where depth was measured, this depth is the observed value and the predicted value is the mean of the values predicted across the cross-validation runs.
 
+NB: Calculation of RMSE (and prediction interval width?) contains an error that needs to be updated
+
 ## Results
 The geostatistical model consistently outperformed the corresponding linear model, exhibiting a lower RMSE, higher CC and narrower prediction intervals. For both models, the
 coverage probability was just short of the 95% value which was expected and the bias was close to 0 (Table 1).
