@@ -11,14 +11,12 @@ library (rgeos)
 library(gdistance)
 
 # Set working directory
-root_fp = "C:/Users/gy17m2a/OneDrive - University of Leeds/Msc/"
 setwd("C:/Users/gy17m2a/OneDrive - University of Leeds/Msc/Dissertation/DataAnalysis/")
 
 # Source files containing functions
-source("Code/Peat_depth_model-master/Functions/clean_pd.R")
-source("Code/Peat_depth_model-master/Functions/cross_validate.R")
-source("Code/Peat_depth_model-master/Functions/check_models.R")
-source("Code/Peat_depth_model-master/Functions/analyse_results.R")
+source("Code/Peat_depth_model-master/4.CrossValidateModel/Functions/cross_validate.R")
+source("Code/Peat_depth_model-master/4.CrossValidateModel/Functions/check_models.R")
+source("Code/Peat_depth_model-master/4.CrossValidateModel/Functions/analyse_results.R")
 
 #################################################################
 # Define variables
@@ -43,33 +41,28 @@ covar_names <- c("elevation", "Slope_5m")
 #################################################################
 #
 #################################################################
-# Create dataframe with depth measurements and slope/elevation if it doesn't exist already
-if (file.exists("Data/Generated/humberstone.shp")){
-  print ("Reading shapefile from folder.")
-  shp = readOGR(dsn = "Data/Generated", layer = "humberstone")} else
-  {print ("Creating shapefile")
-    shp = find_topographic("Humberstone_Peat_Depth_Points", covars, covar_names)}
+# Spatial points dataframe containing locations of measured peat depth samples and their depth, slope and elevation values 
+pd_sample_pts_with_covars <- readOGR(dsn = "Data/Generated/CleanedPeatDepthSamples_withCovariates", layer = "Humberstone_CleanedPD_withCovariates")
 
 # Check for the presence of duplicates in spatial location (both x and y coordinate)
 # If duplication is set to drop then  delete duplicated locations
 if (duplication == 'drop'){
   print ("duplicates removed")
-  shp = find_duplication(shp)
+  pd_sample_pts_with_covars = find_duplication(pd_sample_pts_with_covars)
   # Check for the presence of points which are <1m together.
   # Delete one of each of these pairs of points.
-  shp = find_nearestNeighours (shp)} else
+  pd_sample_pts_with_covars = find_nearestNeighours (pd_sample_pts_with_covars)} else
   {print ("duplicates kept")}
 
 # Convert projection system to that specified at start of file.
-shp <- convert_projection(shp, projection)
-print (crs(shp))
+pd_sample_pts_with_covars <- convert_projection(pd_sample_pts_with_covars, projection)
+print (crs(pd_sample_pts_with_covars))
 
 # Convert the spatial points dataframe to a dataframe for modelling
 dat <- data.frame(shp)
 
 # Add transformations of depth
 dat$sqrtdepth <- sqrt(dat$depth)
-dat$logdepth <- log(dat$depth)
 
 #------------------------------------------------------------------------------
 #2. Fit linear model on the sample data
@@ -78,6 +71,7 @@ dat$logdepth <- log(dat$depth)
 model.lm <- lm(formula=sqrtdepth~elevation + Slope_5m, data=dat)
 model.lm.predictions <-
   predict(object=model.lm, newdata=dat, interval="prediction")
+
 #------------------------------------------------------------------------------
 #3. Fit spatial model on the sample data
 # Convert dataframe to geodata
@@ -92,7 +86,4 @@ model.sm <-
          ini.cov.pars=c(15, 0.05), fix.nugget=FALSE,
          cov.model="exponential")
 
-#------------------------------------------------------------------------------
-# 4. Create unmeasured locations which we want to predict for.
-#m These are created in the process rastrer file - altho not certain this is best location to do this?
-# Take the code from the runcrossvalidation for fitting th emodel
+
