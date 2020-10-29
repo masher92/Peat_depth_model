@@ -55,9 +55,7 @@ slope <-raster("Data/Input/DTM/Dales_Nidderdale_Moorland_Line_Slope_5m.tif")
 # This is used in defining locations of extra points to add in synthetic samples with short distance subset
 aoi_5mIntervals_pts <- read.csv("Data/Generated/UnmeasuredLocations/humberstone_aoi_df.csv")
 # Convert this to a spatial points dataframe
-aoi_5mIntervals_pts_spdf <- SpatialPointsDataFrame(coords = aoi_5mIntervals_pts[c(3:4)], data = aoi_5mIntervals_pts[c(1,2)],proj4string =  CRS("+init=epsg:4326"))
-# Convert projection to BNG
-aoi_5mIntervals_pts_spdf <- spTransform(aoi_5mIntervals_pts_spdf, CRS("+init=epsg:27700"))
+aoi_5mIntervals_pts_spdf <- SpatialPointsDataFrame(coords = aoi_5mIntervals_pts[c(1:2)], data = aoi_5mIntervals_pts[c(3,4)],proj4string =  CRS("+init=epsg:27700"))
 
 # Spatial Polygons Dataframe containing the outline of the study area (trimmed to Moorland Line)
 # These are boundaries within which to construct the synthetic dataset 
