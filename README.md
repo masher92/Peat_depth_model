@@ -39,7 +39,7 @@ Packages required include:
 ## Workflow
 <a name="workflowa"></a>
 ###  Comparing geostatistical and linear model performance
-The accuracy of two different statistical models of peat depth was compared, based on those employed by Young et al. (2018):
+The accuracy of two different statistical models of peat depth was compared, based on those employed by [Young et al (2018)](#young2018):
 1. A linear model using slope and elevation as covariates 
 2. A geostatistical model configured with slope and elevation covariates using universal kriging
 
