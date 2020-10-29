@@ -14,7 +14,8 @@ Examples of each are displayed in Figure 1.
      <img src="Figs/SPCosa_100m.png" width="240"  />  
 <p align="center"> Figure 1. Regular grid (1), regular grid with short distance subset (2), spatial coverage sample (3) and spatial coverage sample with short distance subset (4) <p align="center">
 
-In each case, samples of various sizes (i.e. various numbers of sample points) are defined.  
+In each case, samples of various sizes (i.e. various numbers of sample points) are defined. Regular grids with spacings of 100m, 150m, 200m and 250m are created and the spatial coverage samples are designed to have sample numbers of equivalent sizes to the number in each of these. 
+
 Collecting manual depth samples using all of these strategies, and various sample sizes, would require an unfeasible amount of time and labour, and so instead, synthetic depths are generated programmatically (using function defined in CreateSyntheticSample_functions.R).  
 Both linear and geostatistical model performance is then assessed through cross-validation using these synthetic peat depth datasets.
 
