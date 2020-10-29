@@ -16,7 +16,7 @@ setwd("C:/Users/gy17m2a/OneDrive - University of Leeds/Msc/Dissertation/DataAnal
 source("Code/Peat_depth_model-master/4.CrossValidateModel/Functions/cross_validate.R")
 source("Code/Peat_depth_model-master/4.CrossValidateModel/Functions/check_models.R")
 source("Code/Peat_depth_model-master/4.CrossValidateModel/Functions/analyse_results.R")
-source("Code/Peat_depth_model-master/5.CVModel_WithSyntheticSamples/CreateSyntheticSamples_functions.R")
+source("Code/Peat_depth_model-master/6.TestSamplingStrategies/CreateSyntheticSamples_functions.R")
 
 ##################################################
 # Parameters defining number samples and how they will be used
