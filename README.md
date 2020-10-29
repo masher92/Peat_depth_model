@@ -9,8 +9,7 @@
   b. [ Exploring the impact of sampling strategy ](#workflowb)  
 4. [ Example Usage. ](#ex)
 5. [ Next stages. ](#nextup)
-6. [ License. ](#lic)
-7. [ References. ](#ref)
+6. [ References. ](#ref)
 
 <a name="motiv"></a>
 ## Motivation
