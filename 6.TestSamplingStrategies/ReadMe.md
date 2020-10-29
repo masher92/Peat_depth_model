@@ -34,7 +34,7 @@ Regular grids and spatial coverage samples are defined with the methods outlined
 
 <p align="center">
 <img src="Figs/200M_SR4.png" width="700"  />  
-<p align="center"> Figure 1. Process for addition of short-distance subset. <p align="center">
+<p align="center"> Figure 2. Process for addition of short-distance subset. <p align="center">
 
 NB: In this method, the 50 random variations of the samples with short distance subset only vary the placement of the short distance subset points, rather than the whole sample. It would perhaps be more fair to vary both the placement of the main sample AND the short distance subset.
 
@@ -43,7 +43,7 @@ A function for assigning defined sample locations a synthetic depth value is def
 
 <p align="center">
 <img src="Figs/synthetic_data_flow2.PNG" width="700"  />  
-<p align="center"> Figure 2. Process for generating synthetic depth data <p align="center">
+<p align="center"> Figure 3. Process for generating synthetic depth data <p align="center">
     
 ### References
 <a name="haskard2007"></a>
